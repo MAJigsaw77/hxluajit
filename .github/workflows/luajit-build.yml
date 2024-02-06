@@ -29,12 +29,6 @@ jobs:
         with:
           submodules: true
 
-      - name: Install Dependencies
-        run: sudo apt-get update && sudo apt-get install mingw-w64 -y
-
-      - name: Verify MinGW installation
-        run: mingw64-make --version
-
       - name: Compiling
         run: chmod +x project/luajit/scripts/MinGW-Building.sh && ./project/luajit/scripts/MinGW-Building.sh
 
