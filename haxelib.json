@@ -1,0 +1,20 @@
+{
+	"name": "hxluajit",
+	"url": "https://github.com/MAJigsaw77/hxluajit",
+	"license": "MIT",
+	"tags": [
+		"cpp",
+		"luajit",
+		"haxe"
+	],
+	"description": "Haxe/hxcpp @:native bindings for LuaJIT.",
+	"version": "1.0.0",
+	"releasenote": "First release.",
+	"contributors": [
+		"MAJigsaw77"
+	],
+	"classPath": "source",
+	"dependencies": {
+		"hxcpp": ""
+	}
+}

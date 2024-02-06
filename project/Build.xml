@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml>
+	<pragma once="true" />
+
+	<files id="haxe">
+		<section if="linux">
+			<compilerflag value="-I/usr/include/luajit-2.1" />
+		</section>
+
+		<section unless="linux">
+			<compilerflag value="-I${haxelib:hxluajit}/project/luajit/include" />
+		</section>
+	</files>
+
+	<files id="__main__">
+		<section if="linux">
+			<compilerflag value="-I/usr/include/luajit-2.1" />
+		</section>
+
+		<section unless="linux">
+			<compilerflag value="-I${haxelib:hxluajit}/project/luajit/include" />
+		</section>
+	</files>
+
+	<target id="haxe">
+		<section if="windows">
+			<lib name="${haxelib:hxluajit}/project/luajit/lib/Windows/lua51.lib" if="HXCPP_M64" />
+		</section>
+
+		<section if="macos">
+			<lib name="${haxelib:hxluajit}/project/luajit/lib/MacOS/libluajit.a" if="HXCPP_M64 || HXCPP_ARM64" />
+		</section>
+
+		<section if="linux">
+			<lib name="-lluajit-5.1" />
+		</section>
+
+		<section if="android">
+			<lib name="${haxelib:hxluajit}/project/luajit/lib/Android/libluajit-arm64.a" if="HXCPP_ARM64" />
+			<lib name="${haxelib:hxluajit}/project/luajit/lib/Android/libluajit-armv7a.a" if="HXCPP_ARMV7" />
+			<lib name="${haxelib:hxluajit}/project/luajit/lib/Android/libluajit-x86.a" if="HXCPP_X86" />
+			<lib name="${haxelib:hxluajit}/project/luajit/lib/Android/libluajit-x86_64.a" if="HXCPP_X86_64" />
+		</section>
+
+		<section if="iphoneos">
+			<lib name="${haxelib:hxluajit}/project/luajit/lib/iOS/libluajit_device.a" if="HXCPP_ARM64" />
+		</section>
+
+		<section if="iphonesim">
+			<lib name="${haxelib:hxluajit}/project/luajit/lib/iOS/libluajit_sim.a" if="HXCPP_ARM64 || HXCPP_X86_64" />
+		</section>
+	</target>
+</xml>

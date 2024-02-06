@@ -1,0 +1,90 @@
+name: Build-LuaJIT
+on: workflow_dispatch
+jobs:
+  Windows:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@main
+        with:
+          submodules: true
+
+      - name: Setup MSVC
+        uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Compiling 
+        run: |
+          git clone https://github.com/LuaJIT/LuaJIT.git -b v2.1
+          cd LuaJIT/src
+          ./msvcbuild.bat static
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@main
+        with:
+          name: Windows
+          path: LuaJIT
+          if-no-files-found: warn
+  MacOS:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@main
+        with:
+          submodules: true
+
+      - name: Compiling 
+        run: |
+          chmod +x project/luajit/scripts/MacOS-Building.sh
+          ./project/luajit/scripts/MacOS-Building.sh
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@main
+        with:
+          name: Macos
+          path: LuaJIT/build
+          if-no-files-found: warn
+  iOS:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@main
+        with:
+          submodules: true
+
+      - name: Compiling 
+        run: |
+          chmod +x project/luajit/scripts/iOS-Building.sh
+          ./project/luajit/scripts/iOS-Building.sh
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@main
+        with:
+          name: iOS
+          path: LuaJIT/build
+          if-no-files-found: warn
+  Android:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@main
+        with:
+          submodules: true
+
+      - name: Install Dependencies
+        run: |
+          sudo dpkg --add-architecture i386
+          sudo apt-get update
+          sudo apt-get upgrade
+          sudo apt-get install make automake autoconf libtool build-essential gcc-multilib -y
+
+      - name: Compiling 
+        run: |
+          chmod +x project/luajit/scripts/Android-Building.sh
+          ./project/luajit/scripts/Android-Building.sh
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@main
+        with:
+          name: Android
+          path: LuaJIT/build
+          if-no-files-found: warn
