@@ -1,16 +1,19 @@
 @echo off
 
 git clone https://github.com/LuaJIT/LuaJIT.git -b v2.1
+mkdir LuaJIT/build
 cd LuaJIT/src
 ./msvcbuild.bat static
 
-mkdir ..\build
-copy lua51.lib ..\build
+cd ../
 
-mkdir ..\build\include
-copy lua.hpp ..\build\include
-copy lauxlib.h ..\build\include
-copy lua.h ..\build\include
-copy luaconf.h ..\build\include
-copy lualib.h ..\build\include
-copy luajit.h ..\build\include
+cp src/lua51.lib build/lua51.lib
+
+mkdir build/include
+
+cp src/lua.hpp build/include/lua.hpp
+cp src/lauxlib.h build/include/lauxlib.h
+cp src/lua.h build/include/lua.h
+cp src/luaconf.h build/include/luaconf.h
+cp src/lualib.h build/include/lualib.h
+cp src/luajit.h build/include/luajit.h
