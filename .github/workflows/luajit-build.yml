@@ -13,10 +13,7 @@ jobs:
         uses: ilammy/msvc-dev-cmd@v1
 
       - name: Compiling 
-        run: |
-          git clone https://github.com/LuaJIT/LuaJIT.git -b v2.1
-          cd LuaJIT/src
-          ./msvcbuild.bat static
+        run: ./project/luajit/scripts/Windows-Building.bat
 
       - name: Upload Artifact
         uses: actions/upload-artifact@main
