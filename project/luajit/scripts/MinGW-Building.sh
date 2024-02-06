@@ -8,8 +8,8 @@ mkdir build
 
 # Window x64 MinGW
 
-mingw32-make clean
-mingw32-make -j8 HOST_CC="gcc -m64" TARGET_SYS=Windows
+mingw64-make clean
+mingw64-make -j8 HOST_CC="gcc -m64" TARGET_SYS=Windows
 cp src/libluajit.a build/libluajit.a
 
 # copy includes
