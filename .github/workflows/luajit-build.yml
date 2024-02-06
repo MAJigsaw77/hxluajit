@@ -12,7 +12,7 @@ jobs:
       - name: Setup MSVC
         uses: ilammy/msvc-dev-cmd@v1
 
-      - name: Compiling 
+      - name: Compiling
         run: ./project/luajit/scripts/Windows-Building.bat
 
       - name: Upload Artifact
@@ -28,14 +28,14 @@ jobs:
         uses: actions/checkout@main
         with:
           submodules: true
-          
-      - name: Setup MinGW
-        uses: msys2/setup-msys2@v2
 
       - name: Install Dependencies
         run: sudo apt-get update && sudo apt-get install mingw-w64 -y
 
-      - name: Compiling 
+      - name: Verify MinGW installation
+        run: mingw32-make --version
+
+      - name: Compiling
         run: chmod +x project/luajit/scripts/MinGW-Building.sh && ./project/luajit/scripts/MinGW-Building.sh
 
       - name: Upload Artifact
@@ -52,7 +52,7 @@ jobs:
         with:
           submodules: true
 
-      - name: Compiling 
+      - name: Compiling
         run: chmod +x project/luajit/scripts/MacOS-Building.sh && ./project/luajit/scripts/MacOS-Building.sh
 
       - name: Upload Artifact
@@ -69,7 +69,7 @@ jobs:
         with:
           submodules: true
 
-      - name: Compiling 
+      - name: Compiling
         run: chmod +x project/luajit/scripts/iOS-Building.sh && ./project/luajit/scripts/iOS-Building.sh
 
       - name: Upload Artifact
@@ -89,7 +89,7 @@ jobs:
       - name: Install Dependencies
         run: sudo dpkg --add-architecture i386 && sudo apt-get update && sudo apt-get install make automake autoconf libtool build-essential gcc-multilib -y
 
-      - name: Compiling 
+      - name: Compiling
         run: chmod +x project/luajit/scripts/Android-Building.sh && ./project/luajit/scripts/Android-Building.sh
 
       - name: Upload Artifact
