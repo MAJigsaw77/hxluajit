@@ -30,15 +30,13 @@ jobs:
           submodules: true
           
       - name: Setup MinGW
-        uses: msys2/setup-msys2@main
+        uses: msys2/setup-msys2@v2
 
       - name: Install Dependencies
         run: sudo apt-get update && sudo apt-get install mingw-w64 -y
 
       - name: Compiling 
-        run: |
-          chmod +x project/luajit/scripts/MinGW-Building.sh
-          ./project/luajit/scripts/MinGW-Building.sh
+        run: chmod +x project/luajit/scripts/MinGW-Building.sh && ./project/luajit/scripts/MinGW-Building.sh
 
       - name: Upload Artifact
         uses: actions/upload-artifact@main
@@ -55,9 +53,7 @@ jobs:
           submodules: true
 
       - name: Compiling 
-        run: |
-          chmod +x project/luajit/scripts/MacOS-Building.sh
-          ./project/luajit/scripts/MacOS-Building.sh
+        run: chmod +x project/luajit/scripts/MacOS-Building.sh && ./project/luajit/scripts/MacOS-Building.sh
 
       - name: Upload Artifact
         uses: actions/upload-artifact@main
@@ -74,9 +70,7 @@ jobs:
           submodules: true
 
       - name: Compiling 
-        run: |
-          chmod +x project/luajit/scripts/iOS-Building.sh
-          ./project/luajit/scripts/iOS-Building.sh
+        run: chmod +x project/luajit/scripts/iOS-Building.sh && ./project/luajit/scripts/iOS-Building.sh
 
       - name: Upload Artifact
         uses: actions/upload-artifact@main
@@ -96,9 +90,7 @@ jobs:
         run: sudo dpkg --add-architecture i386 && sudo apt-get update && sudo apt-get install make automake autoconf libtool build-essential gcc-multilib -y
 
       - name: Compiling 
-        run: |
-          chmod +x project/luajit/scripts/Android-Building.sh
-          ./project/luajit/scripts/Android-Building.sh
+        run: chmod +x project/luajit/scripts/Android-Building.sh && ./project/luajit/scripts/Android-Building.sh
 
       - name: Upload Artifact
         uses: actions/upload-artifact@main
