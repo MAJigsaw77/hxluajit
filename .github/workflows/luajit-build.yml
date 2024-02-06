@@ -28,12 +28,12 @@ jobs:
         uses: actions/checkout@main
         with:
           submodules: true
+          
+      - name: Setup MinGW
+        uses: msys2/setup-msys2@main
 
       - name: Install Dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get upgrade
-          sudo apt-get install mingw-w64 -y
+        run: sudo apt-get update && sudo apt-get install mingw-w64 -y
 
       - name: Compiling 
         run: |
@@ -93,11 +93,7 @@ jobs:
           submodules: true
 
       - name: Install Dependencies
-        run: |
-          sudo dpkg --add-architecture i386
-          sudo apt-get update
-          sudo apt-get upgrade
-          sudo apt-get install make automake autoconf libtool build-essential gcc-multilib -y
+        run: sudo dpkg --add-architecture i386 && sudo apt-get update && sudo apt-get install make automake autoconf libtool build-essential gcc-multilib -y
 
       - name: Compiling 
         run: |
