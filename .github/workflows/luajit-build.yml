@@ -19,7 +19,7 @@ jobs:
         uses: actions/upload-artifact@main
         with:
           name: Windows
-          path: LuaJIT
+          path: LuaJIT/build
           if-no-files-found: warn
   MacOS:
     runs-on: macos-latest
