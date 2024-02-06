@@ -13,13 +13,16 @@ jobs:
         uses: ilammy/msvc-dev-cmd@v1
 
       - name: Compiling 
-        run: ./project/luajit/scripts/Windows-Building.bat
+        run: |
+          git clone https://github.com/LuaJIT/LuaJIT.git -b v2.1
+          cd LuaJIT/src
+          ./msvcbuild.bat static
 
       - name: Upload Artifact
         uses: actions/upload-artifact@main
         with:
           name: Windows
-          path: LuaJIT/build
+          path: LuaJIT
           if-no-files-found: warn
   MacOS:
     runs-on: macos-latest
