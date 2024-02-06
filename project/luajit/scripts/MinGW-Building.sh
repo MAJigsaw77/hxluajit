@@ -10,7 +10,7 @@ mkdir build
 
 mingw32-make clean
 mingw32-make -j8 HOST_CC="gcc -m64" TARGET_SYS=Windows
-cp src/libluajit.a build/libluajit-arm64.a
+cp src/libluajit.a build/libluajit.a
 
 # copy includes
 mkdir build/include
