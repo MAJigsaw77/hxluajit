@@ -21,6 +21,33 @@ jobs:
           name: Windows
           path: LuaJIT
           if-no-files-found: warn
+  Windows-MinGW:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@main
+        with:
+          submodules: true
+
+      - name: Setup MSYS2
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: UCRT64
+          install: >-
+            base-devel
+            gcc
+            # cmake
+
+      - name: Compiling
+        run: chmod +x project/luajit/scripts/MinGW-Building.sh && ./project/luajit/scripts/MinGW-Building.sh
+        shell: msys2 {0}
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@main
+        with:
+          name: Windows-MinGW
+          path: LuaJIT/build
+          if-no-files-found: warn
   MacOS:
     runs-on: macos-latest
     steps:
