@@ -32,10 +32,11 @@ jobs:
       - name: Setup MSYS2
         uses: msys2/setup-msys2@v2
         with:
-          msystem: UCRT64
+          msystem: MINGW64
           install: >-
             base-devel
             gcc
+            make
 
       - name: Compiling
         run: chmod +x project/luajit/scripts/MinGW-Building.sh && ./project/luajit/scripts/MinGW-Building.sh
