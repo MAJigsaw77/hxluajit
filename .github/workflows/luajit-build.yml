@@ -36,7 +36,7 @@ jobs:
           install: >-
             base-devel
             gcc
-            make
+            git
 
       - name: Compiling
         run: chmod +x project/luajit/scripts/MinGW-Building.sh && ./project/luajit/scripts/MinGW-Building.sh
