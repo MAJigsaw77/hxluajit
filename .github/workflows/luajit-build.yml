@@ -23,9 +23,6 @@ jobs:
           if-no-files-found: warn
   Windows-MinGW:
     runs-on: windows-latest
-    strategy:
-      matrix:
-        bit: [32, 64]
     steps:
       - name: Checkout
         uses: actions/checkout@main
@@ -35,7 +32,7 @@ jobs:
       - name: Setup MSYS2
         uses: msys2/setup-msys2@v2
         with:
-          msystem: MINGW${{matrix.storage-type}}
+          msystem: MINGW64
           cache: false
           install: >-
             base-devel
@@ -49,7 +46,7 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@main
         with:
-          name: Windows-MinGW${{matrix.storage-type}}
+          name: Windows-MinGW
           path: LuaJIT/build
           if-no-files-found: warn
   MacOS:
