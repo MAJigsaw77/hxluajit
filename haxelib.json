@@ -8,8 +8,8 @@
 		"haxe"
 	],
 	"description": "Haxe/hxcpp @:native bindings for LuaJIT.",
-	"version": "1.0.0",
-	"releasenote": "First release.",
+	"version": "1.0.1",
+	"releasenote": "Added MinGW support.",
 	"contributors": [
 		"MAJigsaw77"
 	],
