@@ -23,10 +23,10 @@
 	</files>
 
 	<target id="haxe">
+		<flag value="-fstack-protector" if="mingw" />
+
 		<section if="mingw">
 			<lib name="${haxelib:hxluajit}/project/luajit/lib/MinGW/libluajit.a" if="HXCPP_M64" />
-
-			<flag value="-fstack-protector" />
 		</section>
 
 		<section if="windows" unless="mingw">
