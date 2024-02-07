@@ -7,9 +7,9 @@ cd LuaJIT
 
 mkdir build
 
+make clean
 cd src
-mingw32-make clean
-mingw32-make -j8
+make -j8
 cd ..
 cp src/libluajit.a build/libluajit.a
 
