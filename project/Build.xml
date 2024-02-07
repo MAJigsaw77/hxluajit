@@ -23,13 +23,14 @@
 	</files>
 
 	<target id="haxe">
-		<section if="windows" unless="mingw">
-			<lib name="${haxelib:hxluajit}/project/luajit/lib/Windows/lua51.lib" if="HXCPP_M64" />
-		</section>
-
 		<section if="mingw">
 			<lib name="${haxelib:hxluajit}/project/luajit/lib/MinGW/libluajit.a" if="HXCPP_M64" />
+
 			<flag value="-fstack-protector" />
+		</section>
+
+		<section if="windows" unless="mingw">
+			<lib name="${haxelib:hxluajit}/project/luajit/lib/Windows/lua51.lib" if="HXCPP_M64" />
 		</section>
 
 		<section if="macos">
