@@ -61,7 +61,7 @@ extern class Lua_Debug
 	var nups:Int; /* (u) number of upvalues */
 	var linedefined:Int; /* (S) */
 	var lastlinedefined:Int; /* (S) */
-	var short_src:cpp.Char; /* (S) */
+	var short_src:cpp.CharStar; /* (S) */
 	var i_ci:Int; /* active function */
 }
 
