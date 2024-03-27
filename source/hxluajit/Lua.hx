@@ -104,6 +104,12 @@ extern class Lua
 	@:native('LUA_MINSTACK')
 	static var MINSTACK:Int;
 
+	@:native('LUA_MAXCAPTURES')
+	static var MAXCAPTURES:Int;
+
+	@:native('LUA_IDSIZE')
+	static var IDSIZE:Int;
+
 	/**
 	 * state manipulation
 	 */
