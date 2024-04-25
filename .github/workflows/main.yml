@@ -1,7 +1,14 @@
 name: Testing
 on:
   push:
-      branches: main
+    branches: main
+    paths-ignore:
+      - 'project/luajit/scripts/**'
+      - 'LICENSE'
+      - 'README.md'
+      - 'TODO.md'
+      - 'haxelib.json'
+      - 'hxformat.json'
   workflow_dispatch:
 jobs:
   Job:
