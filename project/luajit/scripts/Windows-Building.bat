@@ -6,10 +6,10 @@ mkdir build
 mkdir build\include
 cd src
 msvcbuild.bat static
-copy src\lua.hpp ..\..\build\include
-copy src\lauxlib.h ..\..\build\include
-copy src\lua.h ..\..\build\include
-copy src\luaconf.h ..\..\build\include
-copy src\lualib.h ..\..\build\include
-copy src\luajit.h ..\..\build\include
+copy lua.hpp ..\..\build\include
+copy lauxlib.h ..\..\build\include
+copy lua.h ..\..\build\include
+copy luaconf.h ..\..\build\include
+copy lualib.h ..\..\build\include
+copy luajit.h ..\..\build\include
 copy lua51.lib ..\..\build
