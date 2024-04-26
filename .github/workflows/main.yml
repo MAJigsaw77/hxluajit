@@ -3,7 +3,6 @@ on:
   push:
     branches: main
     paths-ignore:
-      - '.github/workflows/check-luajit-commits.yml'
       - '.github/workflows/luajit-build.yml'
       - 'project/luajit/scripts/**'
       - 'LICENSE'
