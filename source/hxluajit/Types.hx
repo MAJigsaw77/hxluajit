@@ -33,6 +33,8 @@ typedef Lua_Alloc = cpp.Callable<(ud:cpp.RawPointer<cpp.Void>, ptr:cpp.RawPointe
 /**
  * Type of numbers in Lua.
  */
+@:buildXml('<include name="${haxelib:hxluajit}/project/Build.xml" />')
+@:include('lua.hpp')
 @:native('lua_Number')
 @:scalar
 @:coreType
@@ -42,6 +44,8 @@ extern abstract Lua_Number from Float to Float {}
 /**
  * Type for integer functions
  */
+@:buildXml('<include name="${haxelib:hxluajit}/project/Build.xml" />')
+@:include('lua.hpp')
 @:native('lua_Integer')
 @:scalar
 @:coreType
