@@ -69,7 +69,7 @@ extern class Lua_Debug
 	var nups:Int; /* (u) number of upvalues */
 	var linedefined:Int; /* (S) */
 	var lastlinedefined:Int; /* (S) */
-	var short_src:cpp.CharStar; /* (S) */
+	var short_src:cpp.CastCharStar; /* (S) */
 	var i_ci:Int; /* active function */
 }
 
@@ -88,7 +88,7 @@ extern class LuaL_Buffer
 	@:native('luaL_Buffer')
 	static function alloc():LuaL_Buffer;
 
-	var p:cpp.CharStar; /* current position in buffer */
+	var p:cpp.CastCharStar; /* current position in buffer */
 	var lvl:Int; /* number of strings in the stack (level) */
 	var L:cpp.RawPointer<Lua_State>;
 	var buffer:cpp.Char;
