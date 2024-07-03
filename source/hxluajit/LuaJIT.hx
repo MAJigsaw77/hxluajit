@@ -37,7 +37,6 @@ extern class LuaJIT
 	@:native('::String(LUAJIT_URL)')
 	static var URL:String;
 
-	/* Modes for luaJIT_setmode. */
 	/**
 	 * Bitmask for LuaJIT mode settings.
 	 */
@@ -92,7 +91,6 @@ extern class LuaJIT
 	@:native('LUAJIT_MODE_MAX')
 	static var MODE_MAX:Int;
 
-	/* Flags or'ed in to the mode. */
 	/**
 	 * Turn feature off.
 	 */
@@ -111,7 +109,6 @@ extern class LuaJIT
 	@:native('LUAJIT_MODE_FLUSH')
 	static var MODE_FLUSH:Int;
 
-	/* LuaJIT public C API. */
 	/**
 	 * Controls the LuaJIT engine mode.
 	 *
