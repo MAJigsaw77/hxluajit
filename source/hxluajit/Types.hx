@@ -1,10 +1,16 @@
 package hxluajit;
 
+/**
+ * Dummy class for importing LuaJIT types.
+ */
 #if !cpp
 #error 'LuaJIT supports only C++ target platforms.'
 #end
 class Types {}
 
+/**
+ * Lua state type, representing the entire execution context of a Lua interpreter.
+ */
 @:buildXml('<include name="${haxelib:hxluajit}/project/Build.xml" />')
 @:include('lua.hpp')
 @:native('lua_State')
@@ -26,12 +32,12 @@ typedef Lua_Reader = cpp.Callable<(L:cpp.RawPointer<Lua_State>, ud:cpp.RawPointe
 typedef Lua_Writer = cpp.Callable<(L:cpp.RawPointer<Lua_State>, p:cpp.RawConstPointer<cpp.Void>, sz:cpp.SizeT, ud:cpp.RawPointer<cpp.Void>) -> Int>;
 
 /**
- * Type for memory-allocation functions.
+ * Type for memory allocation functions.
  */
 typedef Lua_Alloc = cpp.Callable<(ud:cpp.RawPointer<cpp.Void>, ptr:cpp.RawPointer<cpp.Void>, osize:cpp.SizeT, nsize:cpp.SizeT) -> cpp.RawPointer<cpp.Void>>;
 
 /**
- * Type of numbers in Lua.
+ * Type for numbers in Lua.
  */
 @:buildXml('<include name="${haxelib:hxluajit}/project/Build.xml" />')
 @:include('lua.hpp')
@@ -42,7 +48,7 @@ typedef Lua_Alloc = cpp.Callable<(ud:cpp.RawPointer<cpp.Void>, ptr:cpp.RawPointe
 extern abstract Lua_Number from Float to Float {}
 
 /**
- * Type for integer functions
+ * Type for integers in Lua.
  */
 @:buildXml('<include name="${haxelib:hxluajit}/project/Build.xml" />')
 @:include('lua.hpp')
@@ -52,6 +58,9 @@ extern abstract Lua_Number from Float to Float {}
 @:notNull
 extern abstract Lua_Integer from Int to Int {}
 
+/**
+ * Lua debug information.
+ */
 @:buildXml('<include name="${haxelib:hxluajit}/project/Build.xml" />')
 @:include('lua.hpp')
 @:unreflective
@@ -59,27 +68,78 @@ extern abstract Lua_Integer from Int to Int {}
 @:native('lua_Debug')
 extern class Lua_Debug
 {
+	/**
+	 * Allocates a new Lua_Debug instance.
+	 *
+	 * @return A new Lua_Debug instance.
+	 */
 	@:native('lua_Debug')
 	static function alloc():Lua_Debug;
 
+	/**
+	 * Event code.
+	 */
 	var event:Int;
+
+	/**
+	 * Name of the current function.
+	 */
 	var name:cpp.ConstCharStar;
+
+	/**
+	 * Type of name ('global', 'local', etc.).
+	 */
 	var namewhat:cpp.ConstCharStar;
+
+	/**
+	 * Source type ('Lua', 'C', etc.).
+	 */
 	var what:cpp.ConstCharStar;
+
+	/**
+	 * Source of the chunk.
+	 */
 	var source:cpp.ConstCharStar;
+
+	/**
+	 * Current line where the call is.
+	 */
 	var currentline:Int;
+
+	/**
+	 * Number of upvalues.
+	 */
 	var nups:Int;
+
+	/**
+	 * Line where the function was defined.
+	 */
 	var linedefined:Int;
+
+	/**
+	 * Last line where the function was defined.
+	 */
 	var lastlinedefined:Int;
+
+	/**
+	 * Short description of the location.
+	 */
 	var short_src:cpp.CastCharStar;
+
+	/**
+	 * Instruction index.
+	 */
 	var i_ci:Int;
 }
 
 /**
- * Functions to be called by the debuger in specific events
+ * Functions called by the debugger on specific events.
  */
 typedef Lua_Hook = cpp.Callable<(L:cpp.RawPointer<Lua_State>, ar:cpp.RawPointer<Lua_Debug>) -> Void>;
 
+/**
+ * Buffer for building Lua strings.
+ */
 @:buildXml('<include name="${haxelib:hxluajit}/project/Build.xml" />')
 @:include('lua.hpp')
 @:unreflective
@@ -87,15 +147,38 @@ typedef Lua_Hook = cpp.Callable<(L:cpp.RawPointer<Lua_State>, ar:cpp.RawPointer<
 @:native('luaL_Buffer')
 extern class LuaL_Buffer
 {
+	/**
+	 * Allocates a new LuaL_Buffer instance.
+	 *
+	 * @return A new LuaL_Buffer instance.
+	 */
 	@:native('luaL_Buffer')
 	static function alloc():LuaL_Buffer;
 
+	/**
+	 * Current position in the buffer.
+	 */
 	var p:cpp.CastCharStar;
+
+	/**
+	 * Number of elements in the buffer.
+	 */
 	var lvl:Int;
+
+	/**
+	 * Lua state.
+	 */
 	var L:cpp.RawPointer<Lua_State>;
+
+	/**
+	 * Buffer storage.
+	 */
 	var buffer:cpp.Char;
 }
 
+/**
+ * Structure for Lua library functions.
+ */
 @:buildXml('<include name="${haxelib:hxluajit}/project/Build.xml" />')
 @:include('lua.hpp')
 @:unreflective
@@ -103,14 +186,26 @@ extern class LuaL_Buffer
 @:native('luaL_Reg')
 extern class LuaL_Reg
 {
+	/**
+	 * Allocates a new LuaL_Reg instance.
+	 *
+	 * @return A new LuaL_Reg instance.
+	 */
 	@:native('luaL_Reg')
 	static function alloc():LuaL_Reg;
 
+	/**
+	 * Name of the function.
+	 */
 	var name:cpp.ConstCharStar;
+
+	/**
+	 * Function registered with Lua.
+	 */
 	var func:Lua_CFunction;
 }
 
 /**
- * Low-overhead profiling API.
+ * Low-overhead profiling API callback.
  */
 typedef LuaJIT_Profile_Callback = cpp.Callable<(data:cpp.RawPointer<cpp.Void>, L:cpp.RawPointer<Lua_State>, samples:Int, vmstate:Int) -> Void>;
