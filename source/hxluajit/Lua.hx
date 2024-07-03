@@ -25,11 +25,9 @@ extern class Lua
 	@:native('::String(LUA_AUTHORS)')
 	static var AUTHORS:String;
 
-	/* mark for precompiled code (`<esc>Lua') */
 	@:native('::String(LUA_SIGNATURE)')
 	static var SIGNATURE:String;
 
-	/* option for multiple returns in `lua_pcall' and `lua_call' */
 	@:native('LUA_MULTRET')
 	static var MULTRET:Int;
 
@@ -66,10 +64,6 @@ extern class Lua
 	@:native('LUA_ERRFILE')
 	static var ERRFILE:Int;
 
-	/**
-	 * basic types
-	 */
-
 	@:native('LUA_TNONE')
 	static var TNONE:Int;
 
@@ -100,7 +94,6 @@ extern class Lua
 	@:native('LUA_TTHREAD')
 	static var TTHREAD:Int;
 
-	/* minimum Lua stack available to a C function */
 	@:native('LUA_MINSTACK')
 	static var MINSTACK:Int;
 
@@ -109,10 +102,6 @@ extern class Lua
 
 	@:native('LUA_IDSIZE')
 	static var IDSIZE:Int;
-
-	/**
-	 * state manipulation
-	 */
 
 	@:native('lua_newstate')
 	static function newstate(f:Lua_Alloc, ud:cpp.RawPointer<cpp.Void>):cpp.RawPointer<Lua_State>;
@@ -125,10 +114,6 @@ extern class Lua
 
 	@:native('lua_atpanic')
 	static function atpanic(L:cpp.RawPointer<Lua_State>, panicf:Lua_CFunction):Lua_CFunction;
-
-	/**
-	 * basic stack manipulation
-	 */
 
 	@:native('lua_gettop')
 	static function gettop(L:cpp.RawPointer<Lua_State>):Int;
@@ -153,10 +138,6 @@ extern class Lua
 
 	@:native('lua_xmove')
 	static function xmove(from:cpp.RawPointer<Lua_State>, to:cpp.RawPointer<Lua_State>, n:Int):Void;
-
-	/**
-	 * access functions (stack -> C)
-	 */
 
 	@:native('lua_isnumber')
 	static function isnumber(L:cpp.RawPointer<Lua_State>, idx:Int):Int;
@@ -212,10 +193,6 @@ extern class Lua
 	@:native('lua_topointer')
 	static function topointer(L:cpp.RawPointer<Lua_State>, idx:Int):cpp.RawConstPointer<cpp.Void>;
 
-	/**
-	 * push functions (C -> stack)
-	 */
-
 	@:native('lua_pushnil')
 	static function pushnil(L:cpp.RawPointer<Lua_State>):Void;
 
@@ -249,10 +226,6 @@ extern class Lua
 	@:native('lua_pushthread')
 	static function pushthread(L:cpp.RawPointer<Lua_State>):Int;
 
-	/**
-	 * get functions (Lua -> stack)
-	 */
-
 	@:native('lua_gettable')
 	static function gettable(L:cpp.RawPointer<Lua_State>, idx:Int):Int;
 
@@ -277,10 +250,6 @@ extern class Lua
 	@:native('lua_getfenv')
 	static function getfenv(L:cpp.RawPointer<Lua_State>, idx:Int):Int;
 
-	/**
-	 * set functions (stack -> Lua)
-	 */
-
 	@:native('lua_settable')
 	static function settable(L:cpp.RawPointer<Lua_State>, idx:Int):Int;
 
@@ -299,10 +268,6 @@ extern class Lua
 	@:native('lua_setfenv')
 	static function setfenv(L:cpp.RawPointer<Lua_State>, idx:Int):Int;
 
-	/**
-	 * `load' and `call' functions (load and run Lua code)
-	 */
-
 	@:native('lua_call')
 	static function call(L:cpp.RawPointer<Lua_State>, nargs:Int, nresults:Int):Void;
 
@@ -318,10 +283,6 @@ extern class Lua
 	@:native('lua_dump')
 	static function dump(L:cpp.RawPointer<Lua_State>, reader:Lua_Writer, data:cpp.RawPointer<cpp.Void>):Int;
 
-	/**
-	 * coroutine functions
-	 */
-
 	@:native('lua_yield')
 	static function yield(L:cpp.RawPointer<Lua_State>, nresults:Int):Int;
 
@@ -330,10 +291,6 @@ extern class Lua
 
 	@:native('lua_status')
 	static function status(L:cpp.RawPointer<Lua_State>):Int;
-
-	/**
-	 * garbage-collection function and options
-	 */
 
 	@:native('LUA_GCSTOP')
 	static var GCSTOP:Int;
@@ -365,10 +322,6 @@ extern class Lua
 	@:native('lua_gc')
 	static function gc(L:cpp.RawPointer<Lua_State>, what:Int, data:Int):Int;
 
-	/**
-	 * miscellaneous functions
-	 */
-
 	@:native('lua_error')
 	static function error(L:cpp.RawPointer<Lua_State>):Int;
 
@@ -383,12 +336,6 @@ extern class Lua
 
 	@:native('lua_setallocf')
 	static function setallocf(L:cpp.RawPointer<Lua_State>, f:Lua_Alloc, ud:cpp.RawPointer<cpp.Void>):Void;
-
-	/**
-	 * ===============================================================
-	 * some useful macros
-	 * ===============================================================
-	 */
 
 	@:native('lua_pop')
 	static function pop(L:cpp.RawPointer<Lua_State>, n:Int):Void;
@@ -441,10 +388,6 @@ extern class Lua
 	@:native('lua_tostring')
 	static function tostring(L:cpp.RawPointer<Lua_State>, i:Int):cpp.ConstCharStar;
 
-	/*
-	 * compatibility macros and functions
-	 */
-
 	@:native('lua_open')
 	static function open():cpp.RawPointer<Lua_State>;
 
@@ -454,19 +397,9 @@ extern class Lua
 	@:native('lua_getgccount')
 	static function getgccount(L:cpp.RawPointer<Lua_State>):Int;
 
-	/* hack */
 	@:native('lua_setlevel')
 	static function setlevel(from:cpp.RawPointer<Lua_State>, to:cpp.RawPointer<Lua_State>):Void;
 
-	/**
- 	 * {======================================================================
-	 * Debug API
-	 * =======================================================================
-	 */
-
-	/**
-	 * Event codes
-	 */
 	@:native('LUA_HOOKCALL')
 	static var HOOKCALL:Int;
 
@@ -482,9 +415,6 @@ extern class Lua
 	@:native('LUA_HOOKTAILCALL')
 	static var HOOKTAILCALL:Int;
 
-	/**
-	 * Event masks
-	 */
 	@:native('LUA_MASKCALL')
 	static var MASKCALL:Int;
 
@@ -527,7 +457,6 @@ extern class Lua
 	@:native('lua_gethookcount')
 	static function gethookcount(L:cpp.RawPointer<Lua_State>):Int;
 
-	/* From Lua 5.2. */
 	@:native('lua_upvalueid')
 	static function upvalueid(L:cpp.RawPointer<Lua_State>, idx:Int, n:Int):cpp.RawPointer<cpp.Void>;
 
@@ -549,7 +478,6 @@ extern class Lua
 	@:native('lua_tointegerx')
 	static function tointegerx(L:cpp.RawPointer<Lua_State>, idx:Int, isnum:cpp.Star<Int>):Lua_Integer;
 
-	/* From Lua 5.3. */
 	@:native('lua_isyieldable')
 	static function isyieldable(L:cpp.RawPointer<Lua_State>):Int;
 
