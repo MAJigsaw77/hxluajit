@@ -5,6 +5,9 @@ package hxluajit;
 #end
 import hxluajit.Types;
 
+/**
+ * Provides bindings to Lua's auxiliary library functions for Haxe.
+ */
 @:buildXml('<include name="${haxelib:hxluajit}/project/Build.xml" />')
 @:include('lua.hpp')
 @:unreflective
