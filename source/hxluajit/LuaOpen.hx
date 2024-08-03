@@ -6,7 +6,7 @@ package hxluajit;
 import hxluajit.Types;
 
 /**
- * Provides static methods to open various Lua standard libraries and extensions.
+ * Provides static methods to open various standard Lua libraries and extensions.
  */
 @:buildXml('<include name="${haxelib:hxluajit}/project/Build.xml" />')
 @:include('lua.hpp')
