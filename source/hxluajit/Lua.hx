@@ -876,202 +876,580 @@ extern class Lua
 	@:native('LUA_GCISRUNNING')
 	static var GCISRUNNING:Int;
 
+	/**
+	 * Perform a garbage collection operation.
+	 *
+	 * @param L The Lua state.
+	 * @param what The operation to perform.
+	 * @param data The data for the operation.
+	 * @return The result of the operation.
+	 */
 	@:native('lua_gc')
 	static function gc(L:cpp.RawPointer<Lua_State>, what:Int, data:Int):Int;
 
+	/**
+	 * Raise a Lua error.
+	 *
+	 * @param L The Lua state.
+	 * @return The error code.
+	 */
 	@:native('lua_error')
 	static function error(L:cpp.RawPointer<Lua_State>):Int;
 
+	/**
+	 * Get the next key-value pair from the table at the given index.
+	 *
+	 * @param L The Lua state.
+	 * @param idx The index of the table.
+	 * @return 1 if there are more elements, 0 if there are no more elements.
+	 */
 	@:native('lua_next')
 	static function next(L:cpp.RawPointer<Lua_State>, idx:Int):Int;
 
+	/**
+	 * Concatenate values.
+	 *
+	 * @param L The Lua state.
+	 * @param n The number of values to concatenate.
+	 */
 	@:native('lua_concat')
 	static function concat(L:cpp.RawPointer<Lua_State>, n:Int):Void;
 
+	/**
+	 * Get the memory allocator function.
+	 *
+	 * @param L The Lua state.
+	 * @param ud User data.
+	 * @return The memory allocator function.
+	 */
 	@:native('lua_getallocf')
 	static function getallocf(L:cpp.RawPointer<Lua_State>, ud:cpp.RawPointer<cpp.RawPointer<cpp.Void>>):Lua_Alloc;
 
+	/**
+	 * Set the memory allocator function.
+	 *
+	 * @param L The Lua state.
+	 * @param f The memory allocator function.
+	 * @param ud User data.
+	 */
 	@:native('lua_setallocf')
 	static function setallocf(L:cpp.RawPointer<Lua_State>, f:Lua_Alloc, ud:cpp.RawPointer<cpp.Void>):Void;
 
+	/**
+	 * Pop n elements from the stack.
+	 *
+	 * @param L The Lua state.
+	 * @param n The number of elements to pop.
+	 */
 	@:native('lua_pop')
 	static function pop(L:cpp.RawPointer<Lua_State>, n:Int):Void;
 
+	/**
+	 * Create a new table.
+	 *
+	 * @param L The Lua state.
+	 */
 	@:native('lua_newtable')
 	static function newtable(L:cpp.RawPointer<Lua_State>):Void;
 
+	/**
+	 * Register a function.
+	 *
+	 * @param L The Lua state.
+	 * @param name The name of the function.
+	 * @param f The function to register.
+	 */
 	@:native('lua_register')
 	static function register(L:cpp.RawPointer<Lua_State>, name:cpp.ConstCharStar, f:Lua_CFunction):Void;
 
+	/**
+	 * Push a C function onto the stack.
+	 *
+	 * @param L The Lua state.
+	 * @param fn The C function to push.
+	 */
 	@:native('lua_pushcfunction')
 	static function pushcfunction(L:cpp.RawPointer<Lua_State>, fn:Lua_CFunction):Void;
 
+	/**
+	 * Get the length of the value at the given index.
+	 *
+	 * @param L The Lua state.
+	 * @param idx The index of the value.
+	 * @return The length of the value.
+	 */
 	@:native('lua_strlen')
 	static function strlen(L:cpp.RawPointer<Lua_State>, idx:Int):cpp.SizeT;
 
+	/**
+	 * Check if the value at the given index is a function.
+	 *
+	 * @param L The Lua state.
+	 * @param n The index of the value.
+	 * @return 1 if the value is a function, 0 otherwise.
+	 */
 	@:native('lua_isfunction')
 	static function isfunction(L:cpp.RawPointer<Lua_State>, n:Int):Int;
 
+	/**
+	 * Check if the value at the given index is a table.
+	 *
+	 * @param L The Lua state.
+	 * @param n The index of the value.
+	 * @return 1 if the value is a table, 0 otherwise.
+	 */
 	@:native('lua_istable')
 	static function istable(L:cpp.RawPointer<Lua_State>, n:Int):Int;
 
+	/**
+	 * Check if the value at the given index is a light userdata.
+	 *
+	 * @param L The Lua state.
+	 * @param n The index of the value.
+	 * @return 1 if the value is a light userdata, 0 otherwise.
+	 */
 	@:native('lua_islightuserdata')
 	static function islightuserdata(L:cpp.RawPointer<Lua_State>, n:Int):Int;
 
+	/**
+	 * Check if the value at the given index is nil.
+	 *
+	 * @param L The Lua state.
+	 * @param n The index of the value.
+	 * @return 1 if the value is nil, 0 otherwise.
+	 */
 	@:native('lua_isnil')
 	static function isnil(L:cpp.RawPointer<Lua_State>, n:Int):Int;
 
+	/**
+	 * Check if the value at the given index is a boolean.
+	 *
+	 * @param L The Lua state.
+	 * @param n The index of the value.
+	 * @return 1 if the value is a boolean, 0 otherwise.
+	 */
 	@:native('lua_isboolean')
 	static function isboolean(L:cpp.RawPointer<Lua_State>, n:Int):Int;
 
+	/**
+	 * Check if the value at the given index is a thread.
+	 *
+	 * @param L The Lua state.
+	 * @param n The index of the value.
+	 * @return 1 if the value is a thread, 0 otherwise.
+	 */
 	@:native('lua_isthread')
 	static function isthread(L:cpp.RawPointer<Lua_State>, n:Int):Int;
 
+	/**
+	 * Check if the value at the given index is none.
+	 *
+	 * @param L The Lua state.
+	 * @param n The index of the value.
+	 * @return 1 if the value is none, 0 otherwise.
+	 */
 	@:native('lua_isnone')
 	static function isnone(L:cpp.RawPointer<Lua_State>, n:Int):Int;
 
+	/**
+	 * Check if the value at the given index is none or nil.
+	 *
+	 * @param L The Lua state.
+	 * @param n The index of the value.
+	 * @return 1 if the value is none or nil, 0 otherwise.
+	 */
 	@:native('lua_isnoneornil')
 	static function isnoneornil(L:cpp.RawPointer<Lua_State>, n:Int):Int;
 
+	/**
+	 * Push a literal string onto the stack.
+	 *
+	 * @param L The Lua state.
+	 * @param s The literal string.
+	 * @return The literal string.
+	 */
 	@:native('lua_pushliteral')
 	static function pushliteral(L:cpp.RawPointer<Lua_State>, s:cpp.ConstCharStar):cpp.ConstCharStar;
 
+	/**
+	 * Set a global value.
+	 *
+	 * @param L The Lua state.
+	 * @param s The name of the global.
+	 * @return The result of the operation.
+	 */
 	@:native('lua_setglobal')
 	static function setglobal(L:cpp.RawPointer<Lua_State>, s:cpp.ConstCharStar):Int;
 
+	/**
+	 * Get a global value.
+	 *
+	 * @param L The Lua state.
+	 * @param s The name of the global.
+	 * @return The result of the operation.
+	 */
 	@:native('lua_getglobal')
 	static function getglobal(L:cpp.RawPointer<Lua_State>, s:cpp.ConstCharStar):Int;
 
+	/**
+	 * Convert a Lua value to a string.
+	 *
+	 * @param L The Lua state.
+	 * @param i The index of the value.
+	 * @return The converted string.
+	 */
 	@:native('lua_tostring')
 	static function tostring(L:cpp.RawPointer<Lua_State>, i:Int):cpp.ConstCharStar;
 
+	/**
+	 * Open a new Lua state.
+	 *
+	 * @return The new Lua state.
+	 */
 	@:native('lua_open')
 	static function open():cpp.RawPointer<Lua_State>;
 
+	/**
+	 * Get the registry table.
+	 *
+	 * @param L The Lua state.
+	 */
 	@:native('lua_getregistry')
 	static function getregistry(L:cpp.RawPointer<Lua_State>):Void;
 
+	/**
+	 * Get the garbage collection count.
+	 *
+	 * @param L The Lua state.
+	 * @return The garbage collection count.
+	 */
 	@:native('lua_getgccount')
 	static function getgccount(L:cpp.RawPointer<Lua_State>):Int;
 
+	/**
+	 * Set the level of one Lua state based on another Lua state.
+	 *
+	 * @param from The source Lua state.
+	 * @param to The target Lua state.
+	 */
 	@:native('lua_setlevel')
 	static function setlevel(from:cpp.RawPointer<Lua_State>, to:cpp.RawPointer<Lua_State>):Void;
 
+	/**
+	 * Hook call event.
+	 */
 	@:native('LUA_HOOKCALL')
 	static var HOOKCALL:Int;
 
+	/**
+	 * Hook return event.
+	 */
 	@:native('LUA_HOOKRET')
 	static var HOOKRET:Int;
 
+	/**
+	 * Hook line event.
+	 */
 	@:native('LUA_HOOKLINE')
 	static var HOOKLINE:Int;
 
+	/**
+	 * Hook count event.
+	 */
 	@:native('LUA_HOOKCOUNT')
 	static var HOOKCOUNT:Int;
 
+	/**
+	 * Hook tail call event.
+	 */
 	@:native('LUA_HOOKTAILCALL')
 	static var HOOKTAILCALL:Int;
 
+	/**
+	 * Hook mask call.
+	 */
 	@:native('LUA_MASKCALL')
 	static var MASKCALL:Int;
 
+	/**
+	 * Hook mask return.
+	 */
 	@:native('LUA_MASKRET')
 	static var MASKRET:Int;
 
+	/**
+	 * Hook mask line.
+	 */
 	@:native('LUA_MASKLINE')
 	static var MASKLINE:Int;
 
+	/**
+	 * Hook mask count.
+	 */
 	@:native('LUA_MASKCOUNT')
 	static var MASKCOUNT:Int;
 
+	/**
+	 * Get information about the interpreter's stack.
+	 *
+	 * @param L The Lua state.
+	 * @param level The stack level.
+	 * @param ar The debug structure to fill.
+	 * @return 1 if the stack level is valid, 0 otherwise.
+	 */
 	@:native('lua_getstack')
 	static function getstack(L:cpp.RawPointer<Lua_State>, level:Int, ar:cpp.RawPointer<Lua_Debug>):Int;
 
+	/**
+	 * Get information about a function or an active function call.
+	 *
+	 * @param L The Lua state.
+	 * @param what A string specifying the information to get.
+	 * @param ar The debug structure to fill.
+	 * @return 1 if the information is valid, 0 otherwise.
+	 */
 	@:native('lua_getinfo')
 	static function getinfo(L:cpp.RawPointer<Lua_State>, what:cpp.ConstCharStar, ar:cpp.RawPointer<Lua_Debug>):Int;
 
+	/**
+	 * Get the name and value of a local variable of a given activation record.
+	 *
+	 * @param L The Lua state.
+	 * @param ar The activation record.
+	 * @param n The variable index.
+	 * @return The variable name or NULL.
+	 */
 	@:native('lua_getlocal')
 	static function getlocal(L:cpp.RawPointer<Lua_State>, ar:cpp.RawConstPointer<Lua_Debug>, n:Int):cpp.ConstCharStar;
 
+	/**
+	 * Set the value of a local variable of a given activation record.
+	 *
+	 * @param L The Lua state.
+	 * @param ar The activation record.
+	 * @param n The variable index.
+	 * @return The variable name or NULL.
+	 */
 	@:native('lua_setlocal')
 	static function setlocal(L:cpp.RawPointer<Lua_State>, ar:cpp.RawConstPointer<Lua_Debug>, n:Int):cpp.ConstCharStar;
 
+	/**
+	 * Get the name and value of an upvalue.
+	 *
+	 * @param L The Lua state.
+	 * @param funcindex The function index.
+	 * @param n The upvalue index.
+	 * @return The upvalue name or NULL.
+	 */
 	@:native('lua_getupvalue')
 	static function getupvalue(L:cpp.RawPointer<Lua_State>, funcindex:Int, n:Int):cpp.ConstCharStar;
 
+	/**
+	 * Set the value of an upvalue.
+	 *
+	 * @param L The Lua state.
+	 * @param funcindex The function index.
+	 * @param n The upvalue index.
+	 * @return The upvalue name or NULL.
+	 */
 	@:native('lua_setupvalue')
 	static function setupvalue(L:cpp.RawPointer<Lua_State>, funcindex:Int, n:Int):cpp.ConstCharStar;
 
+	/**
+	 * Set the debugging hook.
+	 *
+	 * @param L The Lua state.
+	 * @param func The hook function.
+	 * @param mask The mask specifying the events to monitor.
+	 * @param count The number of instructions to run before calling the hook.
+	 * @return The previous mask.
+	 */
 	@:native('lua_sethook')
 	static function sethook(L:cpp.RawPointer<Lua_State>, func:Lua_Hook, mask:Int, count:Int):Int;
 
+	/**
+	 * Get the current hook function.
+	 *
+	 * @param L The Lua state.
+	 * @return The current hook function.
+	 */
 	@:native('lua_gethook')
 	static function gethook(L:cpp.RawPointer<Lua_State>):Lua_Hook;
 
+	/**
+	 * Get the current hook mask.
+	 *
+	 * @param L The Lua state.
+	 * @return The current hook mask.
+	 */
 	@:native('lua_gethookmask')
 	static function gethookmask(L:cpp.RawPointer<Lua_State>):Int;
 
+	/**
+	 * Get the current hook count.
+	 *
+	 * @param L The Lua state.
+	 * @return The current hook count.
+	 */
 	@:native('lua_gethookcount')
 	static function gethookcount(L:cpp.RawPointer<Lua_State>):Int;
 
+	/**
+	 * Get a unique identifier for an upvalue.
+	 *
+	 * @param L The Lua state.
+	 * @param idx The function index.
+	 * @param n The upvalue index.
+	 * @return A unique identifier for the upvalue.
+	 */
 	@:native('lua_upvalueid')
 	static function upvalueid(L:cpp.RawPointer<Lua_State>, idx:Int, n:Int):cpp.RawPointer<cpp.Void>;
 
+	/**
+	 * Make the n1-th upvalue of the function at index idx1 refer to the same variable as the n2-th upvalue of the function at index idx2.
+	 *
+	 * @param L The Lua state.
+	 * @param idx1 The first function index.
+	 * @param n1 The first upvalue index.
+	 * @param idx2 The second function index.
+	 * @param n2 The second upvalue index.
+	 */
 	@:native('lua_upvaluejoin')
 	static function upvaluejoin(L:cpp.RawPointer<Lua_State>, idx1:Int, n1:Int, idx2:Int, n2:Int):Void;
 
+	/**
+	 * Load a Lua chunk with a specific mode.
+	 *
+	 * @param L The Lua state.
+	 * @param reader The reader function.
+	 * @param dt User data.
+	 * @param chunkname The chunk name.
+	 * @param mode The mode (e.g., "b", "t", or "bt").
+	 * @return The result of the operation.
+	 */
 	@:native('lua_loadx')
 	static function loadx(L:cpp.RawPointer<Lua_State>, reader:Lua_Reader, dt:cpp.RawPointer<cpp.Void>, chunkname:cpp.ConstCharStar,
 		mode:cpp.ConstCharStar):Int;
 
+	/**
+	 * Get the version number of the Lua interpreter.
+	 *
+	 * @param L The Lua state.
+	 * @return The version number.
+	 */
 	@:native('lua_version')
 	static function version(L:cpp.RawPointer<Lua_State>):cpp.RawConstPointer<Lua_Number>;
 
+	/**
+	 * Copy a value from one stack slot to another.
+	 *
+	 * @param L The Lua state.
+	 * @param fromidx The source index.
+	 * @param toidx The destination index.
+	 */
 	@:native('lua_copy')
 	static function copy(L:cpp.RawPointer<Lua_State>, fromidx:Int, toidx:Int):Void;
 
+	/**
+	 * Convert the Lua value at the given index to a number, checking if the conversion is successful.
+	 *
+	 * @param L The Lua state.
+	 * @param idx The index of the value.
+	 * @param isnum Pointer to an integer that is set to 1 if the conversion is successful, or 0 otherwise.
+	 * @return The converted number.
+	 */
 	@:native('lua_tonumberx')
 	static function tonumberx(L:cpp.RawPointer<Lua_State>, idx:Int, isnum:cpp.Star<Int>):Lua_Number;
 
+	/**
+	 * Convert the Lua value at the given index to an integer, checking if the conversion is successful.
+	 *
+	 * @param L The Lua state.
+	 * @param idx The index of the value.
+	 * @param isnum Pointer to an integer that is set to 1 if the conversion is successful, or 0 otherwise.
+	 * @return The converted integer.
+	 */
 	@:native('lua_tointegerx')
 	static function tointegerx(L:cpp.RawPointer<Lua_State>, idx:Int, isnum:cpp.Star<Int>):Lua_Integer;
 
+	/**
+	 * Check if the Lua value at the given index is yieldable.
+	 *
+	 * @param L The Lua state.
+	 * @return 1 if the value is yieldable, 0 otherwise.
+	 */
 	@:native('lua_isyieldable')
 	static function isyieldable(L:cpp.RawPointer<Lua_State>):Int;
 
+	/**
+	 * Lua file handle.
+	 */
 	@:native('::String(LUA_FILEHANDLE)')
 	static var FILEHANDLE:String;
 
+	/**
+	 * Lua coroutine library name.
+	 */
 	@:native('::String(LUA_COLIBNAME)')
 	static var COLIBNAME:String;
 
+	/**
+	 * Lua math library name.
+	 */
 	@:native('::String(LUA_MATHLIBNAME)')
 	static var MATHLIBNAME:String;
 
+	/**
+	 * Lua string library name.
+	 */
 	@:native('::String(LUA_STRLIBNAME)')
 	static var STRLIBNAME:String;
 
+	/**
+	 * Lua table library name.
+	 */
 	@:native('::String(LUA_TABLIBNAME)')
 	static var TABLIBNAME:String;
 
+	/**
+	 * Lua I/O library name.
+	 */
 	@:native('::String(LUA_IOLIBNAME)')
 	static var IOLIBNAME:String;
 
+	/**
+	 * Lua OS library name.
+	 */
 	@:native('::String(LUA_OSLIBNAME)')
 	static var OSLIBNAME:String;
 
+	/**
+	 * Lua load library name.
+	 */
 	@:native('::String(LUA_LOADLIBNAME)')
 	static var LOADLIBNAME:String;
 
+	/**
+	 * Lua debug library name.
+	 */
 	@:native('::String(LUA_DBLIBNAME)')
 	static var DBLIBNAME:String;
 
+	/**
+	 * Lua bitwise operations library name.
+	 */
 	@:native('::String(LUA_BITLIBNAME)')
 	static var BITLIBNAME:String;
 
+	/**
+	 * Lua JIT library name.
+	 */
 	@:native('::String(LUA_JITLIBNAME)')
 	static var JITLIBNAME:String;
 
+	/**
+	 * Lua FFI library name.
+	 */
 	@:native('::String(LUA_FFILIBNAME)')
 	static var FFILIBNAME:String;
 }
