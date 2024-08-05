@@ -1,6 +1,6 @@
 # Based off https://github.com/love2d/love-apple-dependencies/blob/main/macOS/luajit-macOS.sh
 
-git clone https://github.com/LuaJIT/LuaJIT.git -b v2.1
+git clone https://github.com/LuaJIT/LuaJIT.git -b v2.1 --depth 1
 
 cd LuaJIT
 

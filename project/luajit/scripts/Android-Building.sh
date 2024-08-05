@@ -1,6 +1,6 @@
 # Author: Mihai Alexandru (MAJigsaw77)
 
-git clone https://github.com/LuaJIT/LuaJIT.git -b v2.1
+git clone https://github.com/LuaJIT/LuaJIT.git -b v2.1 --depth 1
 
 cd LuaJIT
 
