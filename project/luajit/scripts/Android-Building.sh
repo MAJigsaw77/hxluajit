@@ -23,7 +23,7 @@ cp src/libluajit.a build/libluajit-arm64.a
 
 NDKBIN="$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin"
 NDKCROSS="$NDKBIN/armv7a-linux-androideabi-"
-NDKCC="$NDKBIN/armv7a-linux-androideabi19-clang"
+NDKCC="$NDKBIN/armv7a-linux-androideabi21-clang"
 
 make clean
 make -j8 HOST_CC="gcc -m32" CC=clang CROSS=$NDKCROSS \
@@ -49,7 +49,7 @@ cp src/libluajit.a build/libluajit-x86_64.a
 
 NDKBIN="$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin"
 NDKCROSS="$NDKBIN/i686-linux-android-"
-NDKCC="$NDKBIN/i686-linux-android19-clang"
+NDKCC="$NDKBIN/i686-linux-android21-clang"
 
 make clean
 make -j8 HOST_CC="gcc -m32" CC=clang CROSS=$NDKCROSS \
