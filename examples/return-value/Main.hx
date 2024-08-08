@@ -24,7 +24,7 @@ class Main
 
 		trace('stack: ${Lua.gettop(vm)}');
 
-		trace('num: ${Lua.tointeger(vm, 1)}');
+		trace('num: ' + Lua.tointeger(vm, 1));
 
 		/* cleanup Lua */
 		Lua.close(vm);
