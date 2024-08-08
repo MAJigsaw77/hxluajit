@@ -15,6 +15,14 @@ declare -A archs=(
 	["x86"]="i686-linux-android- i686-linux-android21-clang -m32"
 )
 
+if command -v nproc &> /dev/null; then
+    JOBS=$(nproc)
+elif command -v sysctl &> /dev/null; then
+    JOBS=$(sysctl -n hw.ncpu)
+else
+    JOBS=4
+fi
+
 build_arch()
 {
 	local arch=$1
@@ -23,7 +31,7 @@ build_arch()
 	local host_cc=$4
 
 	make clean
-	make -j$(nproc) HOST_CC="gcc $host_cc" CC=clang CROSS="$NDKBIN/$cross_prefix" \
+	make -j$JOBS HOST_CC="gcc $host_cc" CC=clang CROSS="$NDKBIN/$cross_prefix" \
 		STATIC_CC="$NDKBIN/$cc -fPIC" DYNAMIC_CC="$NDKBIN/$cc -fPIC" TARGET_SYS=Linux \
 		TARGET_LD="$NDKBIN/$cc" TARGET_LDFLAGS="-fuse-ld=lld" TARGET_AR="$NDKBIN/llvm-ar rcus" \
 		TARGET_STRIP="$NDKBIN/llvm-strip"
