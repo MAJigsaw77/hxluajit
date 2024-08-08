@@ -8,14 +8,20 @@ export MACOSX_DEPLOYMENT_TARGET=10.7
 
 mkdir build
 
+if command -v sysctl &> /dev/null; then
+    JOBS=$(sysctl -n hw.ncpu)
+else
+    JOBS=4
+fi
+
 # build x64
 make clean
-make -j$(nproc) TARGET_FLAGS="-arch x86_64"
+make -j$JOBS TARGET_FLAGS="-arch x86_64"
 cp src/libluajit.a build/libluajit_x86_64.a
 
 # build arm64
 make clean
-make -j$(nproc) TARGET_FLAGS="-arch arm64"
+make -j$JOBS TARGET_FLAGS="-arch arm64"
 cp src/libluajit.a build/libluajit_arm64.a
 
 # copy includes
