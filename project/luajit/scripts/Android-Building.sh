@@ -1,72 +1,41 @@
-# Author: Mihai Alexandru (MAJigsaw77)
+#!/bin/bash
 
 git clone https://github.com/LuaJIT/LuaJIT.git -b v2.1 --depth 1
 
 cd LuaJIT
 
-mkdir build
-
-# Android arm64
+mkdir -p build
 
 NDKBIN="$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin"
-NDKCROSS="$NDKBIN/aarch64-linux-android-"
-NDKCC="$NDKBIN/aarch64-linux-android21-clang"
 
-make clean
-make -j8 HOST_CC="gcc -m64" CC=clang CROSS=$NDKCROSS \
-     STATIC_CC=$NDKCC DYNAMIC_CC="$NDKCC -fPIC" TARGET_SYS=Linux \
-     TARGET_LD=$NDKCC TARGET_LDFLAGS="-fuse-ld=lld" TARGET_AR="$NDKBIN/llvm-ar rcus" \
-     TARGET_STRIP=$NDKBIN/llvm-strip
-cp src/libluajit.a build/libluajit-arm64.a
+declare -A archs=(
+	["arm64"]="aarch64-linux-android- aarch64-linux-android21-clang -m64"
+	["armv7a"]="armv7a-linux-androideabi- armv7a-linux-androideabi21-clang -m32"
+	["x86_64"]="x86_64-linux-android- x86_64-linux-android21-clang -m64"
+	["x86"]="i686-linux-android- i686-linux-android21-clang -m32"
+)
 
-# Android armv7a
+build_arch()
+{
+	local arch=$1
+	local cross_prefix=$2
+	local cc=$3
+	local host_cc=$4
 
-NDKBIN="$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin"
-NDKCROSS="$NDKBIN/armv7a-linux-androideabi-"
-NDKCC="$NDKBIN/armv7a-linux-androideabi21-clang"
+	make clean
+	make -j$(nproc) HOST_CC="gcc $host_cc" CC=clang CROSS="$NDKBIN/$cross_prefix" \
+		STATIC_CC="$NDKBIN/$cc" DYNAMIC_CC="$NDKBIN/$cc" TARGET_SYS=Linux \
+		TARGET_LD="$NDKBIN/$cc" TARGET_LDFLAGS="-fuse-ld=lld" TARGET_AR="$NDKBIN/llvm-ar rcus" \
+		TARGET_STRIP="$NDKBIN/llvm-strip"
+	cp src/libluajit.a build/libluajit-$arch.a
+}
 
-make clean
-make -j8 HOST_CC="gcc -m32" CC=clang CROSS=$NDKCROSS \
-     STATIC_CC=$NDKCC DYNAMIC_CC="$NDKCC -fPIC" TARGET_SYS=Linux \
-     TARGET_LD=$NDKCC TARGET_LDFLAGS="-fuse-ld=lld" TARGET_AR="$NDKBIN/llvm-ar rcus" \
-     TARGET_STRIP=$NDKBIN/llvm-strip
-cp src/libluajit.a build/libluajit-armv7a.a
+for arch in "${!archs[@]}"; do
+	build_arch "$arch" ${archs[$arch]}
+done
 
-# Android x86_64
+mkdir -p build/include
 
-NDKBIN="$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin"
-NDKCROSS="$NDKBIN/x86_64-linux-android-"
-NDKCC="$NDKBIN/x86_64-linux-android21-clang"
+cp src/{lua.hpp,lauxlib.h,lua.h,luaconf.h,lualib.h,luajit.h} build/include
 
-make clean
-make -j8 HOST_CC="gcc -m64" CC=clang CROSS=$NDKCROSS \
-     STATIC_CC=$NDKCC DYNAMIC_CC="$NDKCC -fPIC" TARGET_SYS=Linux \
-     TARGET_LD=$NDKCC TARGET_LDFLAGS="-fuse-ld=lld" TARGET_AR="$NDKBIN/llvm-ar rcus" \
-     TARGET_STRIP=$NDKBIN/llvm-strip
-cp src/libluajit.a build/libluajit-x86_64.a
-
-# Android x86
-
-NDKBIN="$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin"
-NDKCROSS="$NDKBIN/i686-linux-android-"
-NDKCC="$NDKBIN/i686-linux-android21-clang"
-
-make clean
-make -j8 HOST_CC="gcc -m32" CC=clang CROSS=$NDKCROSS \
-     STATIC_CC=$NDKCC DYNAMIC_CC="$NDKCC -fPIC" TARGET_SYS=Linux \
-     TARGET_LD=$NDKCC TARGET_LDFLAGS="-fuse-ld=lld" TARGET_AR="$NDKBIN/llvm-ar rcus" \
-     TARGET_STRIP=$NDKBIN/llvm-strip
-cp src/libluajit.a build/libluajit-x86.a
-
-# copy includes
-mkdir build/include
-
-cp src/lua.hpp build/include
-cp src/lauxlib.h build/include
-cp src/lua.h build/include
-cp src/luaconf.h build/include
-cp src/lualib.h build/include
-cp src/luajit.h build/include
-
-# go back
 cd ../
