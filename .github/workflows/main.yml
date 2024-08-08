@@ -12,7 +12,7 @@ on:
       - 'hxformat.json'
   workflow_dispatch:
 jobs:
-  Job:
+  Linux:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -29,6 +29,27 @@ jobs:
 
       - name: Installing Dependencies
         run: sudo apt-get install libluajit-5.1-dev
+
+      - name: Compiling 
+        run: |
+          haxelib install hxcpp --quiet
+          haxelib dev hxluajit .
+          cd examples/${{matrix.sample}}
+          haxe build.hxml
+  MacOS:
+    runs-on: macos-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        sample: [alter-state, array, callback, ffi, module, override, pass-variable, return-value, simple-call, stack-dump]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@main
+
+      - name: Setup Haxe
+        uses: krdlab/setup-haxe@master
+        with:
+          haxe-version: latest
 
       - name: Compiling 
         run: |
