@@ -24,7 +24,7 @@ build_arch()
 
 	make clean
 	make -j$(nproc) HOST_CC="gcc $host_cc" CC=clang CROSS="$NDKBIN/$cross_prefix" \
-		STATIC_CC="$NDKBIN/$cc" DYNAMIC_CC="$NDKBIN/$cc" TARGET_SYS=Linux \
+		STATIC_CC="$NDKBIN/$cc -fPIC" DYNAMIC_CC="$NDKBIN/$cc -fPIC" TARGET_SYS=Linux \
 		TARGET_LD="$NDKBIN/$cc" TARGET_LDFLAGS="-fuse-ld=lld" TARGET_AR="$NDKBIN/llvm-ar rcus" \
 		TARGET_STRIP="$NDKBIN/llvm-strip"
 	cp src/libluajit.a build/libluajit-$arch.a
