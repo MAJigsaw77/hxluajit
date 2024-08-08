@@ -8,7 +8,9 @@ export MACOSX_DEPLOYMENT_TARGET=10.7
 
 mkdir build
 
-if command -v sysctl &> /dev/null; then
+if command -v nproc &> /dev/null; then
+    JOBS=$(nproc)
+elif command -v sysctl &> /dev/null; then
     JOBS=$(sysctl -n hw.ncpu)
 else
     JOBS=4
