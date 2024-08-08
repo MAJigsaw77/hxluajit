@@ -7,9 +7,17 @@ cd LuaJIT
 
 mkdir build
 
+if command -v nproc &> /dev/null; then
+    JOBS=$(nproc)
+elif command -v sysctl &> /dev/null; then
+    JOBS=$(sysctl -n hw.ncpu)
+else
+    JOBS=4
+fi
+
 make clean
 cd src
-make -j$(nproc) BUILDMODE=static
+make -j$JOBS BUILDMODE=static
 cd ..
 cp src/libluajit.a build/libluajit.a
 
