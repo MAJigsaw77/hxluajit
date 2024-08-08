@@ -10,12 +10,12 @@ mkdir build
 
 # build x64
 make clean
-make -j8 TARGET_FLAGS="-arch x86_64"
+make -j$(nproc) TARGET_FLAGS="-arch x86_64"
 cp src/libluajit.a build/libluajit_x86_64.a
 
 # build arm64
 make clean
-make -j8 TARGET_FLAGS="-arch arm64"
+make -j$(nproc) TARGET_FLAGS="-arch arm64"
 cp src/libluajit.a build/libluajit_arm64.a
 
 # copy includes

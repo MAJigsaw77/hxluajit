@@ -9,7 +9,7 @@ mkdir build
 
 make clean
 cd src
-make -j8 BUILDMODE=static
+make -j$(nproc) BUILDMODE=static
 cd ..
 cp src/libluajit.a build/libluajit.a
 

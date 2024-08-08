@@ -15,7 +15,7 @@ ICC=$(xcrun --sdk iphoneos --find clang)
 
 ISDKF="-arch arm64 -isysroot $ISDKP -mios-version-min=8.0"
 make clean TARGET_SYS=iOS
-make -j8 CC="clang" CROSS="$(dirname $ICC)/" TARGET_FLAGS="$ISDKF" TARGET_SYS=iOS
+make -j$(nproc) CC="clang" CROSS="$(dirname $ICC)/" TARGET_FLAGS="$ISDKF" TARGET_SYS=iOS
 cp src/libluajit.a build/libluajit_device.a
 
 # iOS simulator binaries
@@ -25,12 +25,12 @@ ICC=$(xcrun --sdk iphonesimulator --find clang)
 
 ISDKF="-arch x86_64 -isysroot $ISDKP -mios-simulator-version-min=8.0"
 make clean TARGET_SYS=iOS
-make -j8 CC="clang" CROSS="$(dirname $ICC)/" TARGET_FLAGS="$ISDKF" TARGET_SYS=iOS
+make -j$(nproc) CC="clang" CROSS="$(dirname $ICC)/" TARGET_FLAGS="$ISDKF" TARGET_SYS=iOS
 cp src/libluajit.a build/libluajit_x86_64_sim.a
 
 ISDKF="-arch arm64 -isysroot $ISDKP -mios-simulator-version-min=8.0"
 make clean TARGET_SYS=iOS
-make -j8 CC="clang" CROSS="$(dirname $ICC)/" TARGET_FLAGS="$ISDKF" TARGET_SYS=iOS
+make -j$(nproc) CC="clang" CROSS="$(dirname $ICC)/" TARGET_FLAGS="$ISDKF" TARGET_SYS=iOS
 cp src/libluajit.a build/libluajit_arm64_sim.a
 
 # copy includes

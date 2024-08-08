@@ -6,8 +6,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@main
-        with:
-          submodules: true
 
       - name: Setup MSVC
         uses: ilammy/msvc-dev-cmd@v1
@@ -26,8 +24,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@main
-        with:
-          submodules: true
 
       - name: Setup MSYS2
         uses: msys2/setup-msys2@v2
@@ -54,8 +50,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@main
-        with:
-          submodules: true
 
       - name: Compiling
         run: chmod +x project/luajit/scripts/MacOS-Building.sh && ./project/luajit/scripts/MacOS-Building.sh
@@ -71,8 +65,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@main
-        with:
-          submodules: true
 
       - name: Compiling
         run: chmod +x project/luajit/scripts/iOS-Building.sh && ./project/luajit/scripts/iOS-Building.sh
@@ -88,8 +80,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@main
-        with:
-          submodules: true
 
       - name: Install Dependencies
         run: sudo dpkg --add-architecture i386 && sudo apt-get update && sudo apt-get install make automake autoconf libtool build-essential gcc-multilib -y
