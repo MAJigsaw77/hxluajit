@@ -19,20 +19,55 @@ haxelib git hxluajit https://github.com/MAJigsaw77/hxluajit.git
 
 On ***Linux*** you need to install `luajit` from your distro's package manager.
 
-* [Debian](https://debian.org) based distributions:
-  ```bash
-  sudo apt-get install libluajit-5.1-dev
-  ```
+<details>
+<summary>Commands list</summary>
 
-* [Arch](https://archlinux.org) based distributions:
-  ```bash
-  sudo pacman -S luajit
-  ```
+#### Debian based distributions ([Debian](https://debian.org)):
+```bash
+sudo apt-get install libluajit-5.1-dev
+```
 
-* [Gentoo](https://gentoo.org) based distributions:
-  ```bash
-  sudo emerge dev-lang/luajit
-  ```
+#### Arch based distributions ([Arch](https://archlinux.org)):
+```bash
+sudo pacman -S luajit
+```
+
+#### Fedora based distributions ([Fedora](https://getfedora.org)):
+```bash
+sudo dnf install luajit
+```
+
+#### Red Hat Enterprise Linux (RHEL):
+```bash
+sudo dnf install luajit
+```
+
+#### openSUSE based distributions ([openSUSE](https://www.opensuse.org)):
+```bash
+sudo zypper install luajit
+```
+
+#### Gentoo based distributions ([Gentoo](https://gentoo.org)):
+```bash
+sudo emerge dev-lang/luajit
+```
+
+#### Slackware based distributions ([Slackware](https://www.slackware.com)):
+```bash
+sudo slackpkg install luajit
+```
+
+#### Void Linux ([Void Linux](https://voidlinux.org)):
+```bash
+sudo xbps-install -S luajit
+```
+
+#### NixOS ([NixOS](https://nixos.org)):
+```bash
+nix-env -iA nixpkgs.luajit
+```
+
+</details>
 
 ### Usage Example
 
