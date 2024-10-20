@@ -1,5 +1,5 @@
 # Author: Lily Ross (mcagabe19)
-# Note that use msys to build
+# Note that use linux to build
 
 git clone https://github.com/LuaJIT/LuaJIT.git -b v2.1 --depth 1
 
@@ -17,7 +17,7 @@ fi
 
 make clean
 cd src
-make -j$JOBS BUILDMODE=static
+make -j$JOBS HOST_CC=gcc CROSS=x86_64-w64-mingw32- BUILDMODE=static TARGET_SYS=Windows
 cd ..
 cp src/libluajit.a build/libluajit.a
 
