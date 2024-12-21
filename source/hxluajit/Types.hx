@@ -70,11 +70,8 @@ extern class Lua_Debug
 {
 	/**
 	 * Allocates a new Lua_Debug instance.
-	 *
-	 * @return A new Lua_Debug instance.
 	 */
-	@:native('lua_Debug')
-	static function alloc():Lua_Debug;
+	function new():Void;
 
 	/**
 	 * Event code.
@@ -149,11 +146,8 @@ extern class LuaL_Buffer
 {
 	/**
 	 * Allocates a new LuaL_Buffer instance.
-	 *
-	 * @return A new LuaL_Buffer instance.
 	 */
-	@:native('luaL_Buffer')
-	static function alloc():LuaL_Buffer;
+	function new():Void;
 
 	/**
 	 * Current position in the buffer.
@@ -188,11 +182,8 @@ extern class LuaL_Reg
 {
 	/**
 	 * Allocates a new LuaL_Reg instance.
-	 *
-	 * @return A new LuaL_Reg instance.
 	 */
-	@:native('luaL_Reg')
-	static function alloc():LuaL_Reg;
+	function new():Void;
 
 	/**
 	 * Name of the function.
