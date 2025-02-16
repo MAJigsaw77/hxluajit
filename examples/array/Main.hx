@@ -18,7 +18,7 @@ class Main
 
 		/* load Lua base libraries */
 		LuaL.openlibs(vm);
-		
+
 		final id:Map<String, String> = [
 			'name' => 'Richard',
 			'date' => '2016-08-15',

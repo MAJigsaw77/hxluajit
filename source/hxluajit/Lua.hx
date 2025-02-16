@@ -344,20 +344,21 @@ extern class Lua
 	static function iscfunction(L:cpp.RawPointer<Lua_State>, idx:Int):Int;
 
 	/**
-		* Check if a value is userdata.
-		*
-		* @param L The Lua state.
-		* @param idx The index of the value to check.
-		* @return 1 if the value is userdata, 0 otherwise.
-		@:native('lua_isuserdata')
-		static function isuserdata(L:cpp.RawPointer<Lua_State>, idx:Int):Int;
+	 * Check if a value is userdata.
+	 *
+	 * @param L The Lua state.
+	 * @param idx The index of the value to check.
+	 * @return 1 if the value is userdata, 0 otherwise.
+	**/
+	@:native('lua_isuserdata')
+	static function isuserdata(L:cpp.RawPointer<Lua_State>, idx:Int):Int;
 
-		/**
-		* Get the type of a value.
-		*
-		* @param L The Lua state.
-		* @param idx The index of the value.
-		* @return The type of the value.
+	/**
+	 * Get the type of a value.
+	 *
+	 * @param L The Lua state.
+	 * @param idx The index of the value.
+	 * @return The type of the value.
 	 */
 	@:native('lua_type')
 	static function type(L:cpp.RawPointer<Lua_State>, idx:Int):Int;
@@ -1328,8 +1329,7 @@ extern class Lua
 	 * @return The result of the operation.
 	 */
 	@:native('lua_loadx')
-	static function loadx(L:cpp.RawPointer<Lua_State>, reader:Lua_Reader, dt:cpp.RawPointer<cpp.Void>, chunkname:cpp.ConstCharStar,
-		mode:cpp.ConstCharStar):Int;
+	static function loadx(L:cpp.RawPointer<Lua_State>, reader:Lua_Reader, dt:cpp.RawPointer<cpp.Void>, chunkname:cpp.ConstCharStar, mode:cpp.ConstCharStar):Int;
 
 	/**
 	 * Get the version number of the Lua interpreter.

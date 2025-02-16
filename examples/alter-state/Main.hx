@@ -19,11 +19,7 @@ class Main
 		/* load Lua base libraries */
 		LuaL.openlibs(vm);
 
-		final prices:Map<Int, String> = [
-			10 => 'apple',
-			20 => 'banana',
-			30 => 'cherry'
-		];
+		final prices:Map<Int, String> = [10 => 'apple', 20 => 'banana', 30 => 'cherry'];
 
 		/* set some default values */
 		for (key => value in prices)

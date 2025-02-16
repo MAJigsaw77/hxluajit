@@ -40,6 +40,6 @@ class Main
 
 		Lua.pop(l, n); /* clear the stack */
 
-		return 0; 
+		return 0;
 	}
 }
