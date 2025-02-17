@@ -40,7 +40,7 @@ class Main
 		for (i in 0...n)
 		{
 			if (Lua.isnumber(l, i + 1) != 1)
-				LuaL.error(l, "Incorrect argument to 'average'", []);
+				LuaL.error(l, "Incorrect argument to 'average'");
 
 			/* total the arguments */
 			sum += Lua.tonumber(l, i + 1);
