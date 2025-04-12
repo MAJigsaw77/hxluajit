@@ -8,8 +8,8 @@
 		"haxe"
 	],
 	"description": "Haxe/hxcpp @:native bindings for LuaJIT.",
-	"version": "1.0.3",
-	"releasenote": "Added documentation and updated LuaJIT libs.",
+	"version": "1.0.5",
+	"releasenote": "Some improvements and updated LuaJIT libs.",
 	"contributors": [
 		"MAJigsaw77"
 	],
