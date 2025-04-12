@@ -3,23 +3,11 @@
 	<pragma once="true" />
 
 	<files id="haxe">
-		<section if="linux">
-			<compilerflag value="-I/usr/include/luajit-2.1" />
-		</section>
-
-		<section unless="linux">
-			<compilerflag value="-I${haxelib:hxluajit}/project/luajit/include" />
-		</section>
+		<compilerflag value="-I${haxelib:hxluajit}/project/luajit/include" />
 	</files>
 
 	<files id="__main__">
-		<section if="linux">
-			<compilerflag value="-I/usr/include/luajit-2.1" />
-		</section>
-
-		<section unless="linux">
-			<compilerflag value="-I${haxelib:hxluajit}/project/luajit/include" />
-		</section>
+		<compilerflag value="-I${haxelib:hxluajit}/project/luajit/include" />
 	</files>
 
 	<target id="haxe">
@@ -38,7 +26,7 @@
 		</section>
 
 		<section if="linux">
-			<lib name="-lluajit-5.1" />
+			<lib name="${haxelib:hxluajit}/project/luajit/lib/Linux/libluajit.a" if="HXCPP_M64" />
 		</section>
 
 		<section if="android">

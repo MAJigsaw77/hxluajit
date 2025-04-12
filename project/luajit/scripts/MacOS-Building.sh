@@ -1,12 +1,16 @@
-# Based off https://github.com/love2d/love-apple-dependencies/blob/main/macOS/luajit-macOS.sh
+#!/bin/bash
 
-git clone https://github.com/LuaJIT/LuaJIT.git -b v2.1 --depth 1
+if [ -d "LuaJIT" ]; then
+    cd LuaJIT
+    git checkout v2.1
+    git pull origin v2.1
+else
+    git clone https://github.com/LuaJIT/LuaJIT.git -b v2.1 --depth 1
+    cd LuaJIT
+fi
 
-cd LuaJIT
-
-export MACOSX_DEPLOYMENT_TARGET=10.7
-
-mkdir build
+mkdir -p build
+mkdir -p build/include
 
 if command -v nproc &> /dev/null; then
     JOBS=$(nproc)
@@ -16,29 +20,18 @@ else
     JOBS=4
 fi
 
-# build x64
+export MACOSX_DEPLOYMENT_TARGET=10.7
+
 make clean
 make -j$JOBS TARGET_FLAGS="-arch x86_64"
 cp src/libluajit.a build/libluajit_x86_64.a
 
-# build arm64
 make clean
 make -j$JOBS TARGET_FLAGS="-arch arm64"
 cp src/libluajit.a build/libluajit_arm64.a
 
-# copy includes
-mkdir build/include
+cp src/{lua.hpp,lauxlib.h,lua.h,luaconf.h,lualib.h,luajit.h} build/include
 
-cp src/lua.hpp build/include
-cp src/lauxlib.h build/include
-cp src/lua.h build/include
-cp src/luaconf.h build/include
-cp src/lualib.h build/include
-cp src/luajit.h build/include
-
-# combine lib
 lipo -create -output build/libluajit.a build/libluajit_arm64.a build/libluajit_x86_64.a
 
-# go back
-
-cd ../
+cd ..
