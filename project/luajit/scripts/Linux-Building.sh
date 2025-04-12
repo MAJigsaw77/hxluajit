@@ -20,18 +20,20 @@ else
     JOBS=4
 fi
 
-export MACOSX_DEPLOYMENT_TARGET=10.7
-
 make clean
-make -j$JOBS TARGET_FLAGS="-arch x86_64"
+make -j$JOBS TARGET_FLAGS="-march=x86-64"
 cp src/libluajit.a build/libluajit_x86_64.a
 
 make clean
-make -j$JOBS TARGET_FLAGS="-arch arm64"
+make -j$JOBS TARGET_FLAGS="-march=armv8-a"
 cp src/libluajit.a build/libluajit_arm64.a
 
 cp src/{lua.hpp,lauxlib.h,lua.h,luaconf.h,lualib.h,luajit.h} build/include
 
-lipo -create -output build/libluajit.a build/libluajit_arm64.a build/libluajit_x86_64.a
+ar -x build/libluajit_x86_64.a
+ar -x build/libluajit_arm64.a
+ar rcs build/libluajit.a *.o
+
+rm -f *.o
 
 cd ..

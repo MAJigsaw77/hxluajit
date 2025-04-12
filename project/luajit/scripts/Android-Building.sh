@@ -1,10 +1,24 @@
 #!/bin/bash
 
-git clone https://github.com/LuaJIT/LuaJIT.git -b v2.1 --depth 1
-
-cd LuaJIT
+if [ -d "LuaJIT" ]; then
+    cd LuaJIT
+    git checkout v2.1
+    git pull origin v2.1
+else
+    git clone https://github.com/LuaJIT/LuaJIT.git -b v2.1 --depth 1
+    cd LuaJIT
+fi
 
 mkdir -p build
+mkdir -p build/include
+
+if command -v nproc &> /dev/null; then
+    JOBS=$(nproc)
+elif command -v sysctl &> /dev/null; then
+    JOBS=$(sysctl -n hw.ncpu)
+else
+    JOBS=4
+fi
 
 NDKBIN="$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin"
 
@@ -14,14 +28,6 @@ declare -A archs=(
 	["x86_64"]="x86_64-linux-android- x86_64-linux-android21-clang -m64"
 	["x86"]="i686-linux-android- i686-linux-android21-clang -m32"
 )
-
-if command -v nproc &> /dev/null; then
-    JOBS=$(nproc)
-elif command -v sysctl &> /dev/null; then
-    JOBS=$(sysctl -n hw.ncpu)
-else
-    JOBS=4
-fi
 
 build_arch()
 {
@@ -42,8 +48,6 @@ for arch in "${!archs[@]}"; do
 	build_arch "$arch" ${archs[$arch]}
 done
 
-mkdir -p build/include
-
 cp src/{lua.hpp,lauxlib.h,lua.h,luaconf.h,lualib.h,luajit.h} build/include
 
-cd ../
+cd ..

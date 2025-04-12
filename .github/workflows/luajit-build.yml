@@ -17,7 +17,7 @@ jobs:
         uses: actions/upload-artifact@main
         with:
           name: Windows
-          path: LuaJIT
+          path: LuaJIT/build
           if-no-files-found: warn
   Windows-MinGW:
     runs-on: ubuntu-latest
@@ -50,6 +50,24 @@ jobs:
         uses: actions/upload-artifact@main
         with:
           name: Macos
+          path: LuaJIT/build
+          if-no-files-found: warn
+  Linux:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@main
+
+      - name: Install Dependencies
+        run: sudo apt-get update && sudo apt-get install -y build-essential gcc g++ make && sudo apt-get install -y gcc-multilib g++-multilib && sudo apt-get install -y crossbuild-essential-arm64
+
+      - name: Compiling
+        run: chmod +x project/luajit/scripts/Linux-Building.sh && ./project/luajit/scripts/Linux-Building.sh
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@main
+        with:
+          name: Linux
           path: LuaJIT/build
           if-no-files-found: warn
   iOS:
@@ -85,3 +103,78 @@ jobs:
           name: Android
           path: LuaJIT/build
           if-no-files-found: warn
+  Publisher:
+    needs: [Windows, Windows-MinGW, MacOS, Linux, iOS, Android]
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: Download Windows Artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: Windows
+          path: ./LuaJIT/windows
+
+      - name: Download Windows-MinGW Artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: Windows-MinGW
+          path: ./LuaJIT/windows-mingw
+
+      - name: Download MacOS Artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: Macos
+          path: ./LuaJIT/macos
+
+      - name: Download Linux Artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: Linux
+          path: ./LuaJIT/linux
+
+      - name: Download iOS Artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: iOS
+          path: ./LuaJIT/ios
+
+      - name: Download Android Artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: Android
+          path: ./LuaJIT/android
+
+      - name: Copy to project/luajit/lib and project/luajit/include
+        run: |
+          cp -r ./LuaJIT/windows/libluajit.lib ./project/luajit/liblibluajit.lib
+          cp -r ./LuaJIT/windows/include/* ./project/luajit/include
+
+          cp -r ./LuaJIT/windows-mingw/libluajit.a ./project/luajit/lib/libluajit.a
+          cp -r ./LuaJIT/windows-mingw/include/* ./project/luajit/include
+
+          cp -r ./LuaJIT/macos/libluajit.a ./project/luajit/lib/libluajit.a
+          cp -r ./LuaJIT/macos/include/* ./project/luajit/include
+
+          cp -r ./LuaJIT/linux/libluajit.a ./project/luajit/lib/libluajit.a
+          cp -r ./LuaJIT/linux/include/* ./project/luajit/include
+
+          cp -r ./LuaJIT/ios/libluajit_device.a ./project/luajit/lib/libluajit_device.a
+          cp -r ./LuaJIT/ios/libluajit_sim.a ./project/luajit/lib/build/libluajit_sim.a
+          cp -r ./LuaJIT/ios/include/* ./project/luajit/include/
+
+          cp -r ./LuaJIT/android/libluajit-arm64.a ./project/luajit/lib/libluajit-arm64.a
+          cp -r ./LuaJIT/android/libluajit-armv7a.a ./project/luajit/lib/libluajit-armv7a.a
+          cp -r ./LuaJIT/android/libluajit-x86_64.a ./project/luajit/lib/libluajit-x86_64.a
+          cp -r ./LuaJIT/android/libluajit-x86.a ./project/luajit/lib/libluajit-x86.a
+          cp -r ./LuaJIT/android/include/* ./project/luajit/include/
+
+      - name: Push to GitHub
+        uses: stefanzweifel/git-auto-commit-action@master
+        with:
+          commit_message: "Update `LuaJIT` libs and headers."
