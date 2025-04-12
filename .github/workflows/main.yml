@@ -27,9 +27,6 @@ jobs:
         with:
           haxe-version: 4.3.6
 
-      - name: Installing Dependencies
-        run: sudo apt-get install libluajit-5.1-dev
-
       - name: Compiling 
         run: |
           haxelib install hxcpp --quiet
