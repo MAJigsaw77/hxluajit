@@ -18,7 +18,7 @@
 		</section>
 
 		<section if="windows" unless="mingw">
-			<lib name="${haxelib:hxluajit}/project/luajit/lib/Windows/libluajit.lib" if="HXCPP_M64" />
+			<lib name="${haxelib:hxluajit}/project/luajit/lib/Windows/lua51.lib" if="HXCPP_M64" />
 		</section>
 
 		<section if="macos">

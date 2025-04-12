@@ -60,7 +60,7 @@ jobs:
 
       - name: Install Dependencies
         run: sudo apt-get update && sudo apt-get install -y build-essential gcc g++ make && sudo apt-get install -y gcc-multilib g++-multilib && sudo apt-get install -y crossbuild-essential-arm64 gcc-aarch64-linux-gnu
-      
+
       - name: Compiling
         run: chmod +x project/luajit/scripts/Linux-Building.sh && ./project/luajit/scripts/Linux-Building.sh
 
@@ -152,26 +152,26 @@ jobs:
 
       - name: Copy to project/luajit/lib and project/luajit/include
         run: |
-          cp -r ./LuaJIT/windows/libluajit.lib ./project/luajit/liblibluajit.lib
+          cp -r ./LuaJIT/windows/lua51.lib ./project/luajit/lib/Windows/lua51.lib
           cp -r ./LuaJIT/windows/include/* ./project/luajit/include
 
-          cp -r ./LuaJIT/windows-mingw/libluajit.a ./project/luajit/lib/libluajit.a
+          cp -r ./LuaJIT/windows-mingw/libluajit.a ./project/luajit/lib/MinGW/libluajit.a
           cp -r ./LuaJIT/windows-mingw/include/* ./project/luajit/include
 
-          cp -r ./LuaJIT/macos/libluajit.a ./project/luajit/lib/libluajit.a
+          cp -r ./LuaJIT/macos/libluajit.a ./project/luajit/lib/MacOS/libluajit.a
           cp -r ./LuaJIT/macos/include/* ./project/luajit/include
 
-          cp -r ./LuaJIT/linux/libluajit.a ./project/luajit/lib/libluajit.a
+          cp -r ./LuaJIT/linux/libluajit.a ./project/luajit/lib/Linux/libluajit.a
           cp -r ./LuaJIT/linux/include/* ./project/luajit/include
 
-          cp -r ./LuaJIT/ios/libluajit_device.a ./project/luajit/lib/libluajit_device.a
-          cp -r ./LuaJIT/ios/libluajit_sim.a ./project/luajit/lib/build/libluajit_sim.a
+          cp -r ./LuaJIT/ios/libluajit_device.a ./project/luajit/lib/iOS/libluajit_device.a
+          cp -r ./LuaJIT/ios/libluajit_sim.a ./project/luajit/lib/iOS/libluajit_sim.a
           cp -r ./LuaJIT/ios/include/* ./project/luajit/include/
 
-          cp -r ./LuaJIT/android/libluajit-arm64.a ./project/luajit/lib/libluajit-arm64.a
-          cp -r ./LuaJIT/android/libluajit-armv7a.a ./project/luajit/lib/libluajit-armv7a.a
-          cp -r ./LuaJIT/android/libluajit-x86_64.a ./project/luajit/lib/libluajit-x86_64.a
-          cp -r ./LuaJIT/android/libluajit-x86.a ./project/luajit/lib/libluajit-x86.a
+          cp -r ./LuaJIT/android/libluajit-arm64.a ./project/luajit/lib/Android/libluajit-arm64.a
+          cp -r ./LuaJIT/android/libluajit-armv7a.a ./project/luajit/lib/Android/libluajit-armv7a.a
+          cp -r ./LuaJIT/android/libluajit-x86_64.a ./project/luajit/lib/Android/libluajit-x86_64.a
+          cp -r ./LuaJIT/android/libluajit-x86.a ./project/luajit/lib/Android/libluajit-x86.a
           cp -r ./LuaJIT/android/include/* ./project/luajit/include/
 
       - name: Push to GitHub
