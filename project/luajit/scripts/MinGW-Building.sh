@@ -21,9 +21,7 @@ else
 fi
 
 make clean
-cd src
 make -j$JOBS HOST_CC=gcc CROSS=x86_64-w64-mingw32- BUILDMODE=static TARGET_SYS=Windows
-cd ..
 cp src/libluajit.a build/libluajit.a
 
 cp src/{lua.hpp,lauxlib.h,lua.h,luaconf.h,lualib.h,luajit.h} build/include

@@ -22,17 +22,9 @@ fi
 
 make clean
 make -j$JOBS TARGET_FLAGS="-march=x86-64"
-cp src/libluajit.a build/libluajit_x86_64.a
-
-make clean
-make -j$JOBS TARGET_FLAGS="-march=armv8-a" CC=aarch64-linux-gnu-gcc
-cp src/libluajit.a build/libluajit_arm64.a
+cp src/libluajit.a build/libluajit.a
 
 cp src/{lua.hpp,lauxlib.h,lua.h,luaconf.h,lualib.h,luajit.h} build/include
-
-ar -x build/libluajit_x86_64.a
-ar -x build/libluajit_arm64.a
-ar rcs build/libluajit.a *.o
 
 rm -f *.o
 

@@ -26,7 +26,7 @@
 		</section>
 
 		<section if="linux">
-			<lib name="${haxelib:hxluajit}/project/luajit/lib/Linux/libluajit.a" if="HXCPP_M64 || HXCPP_ARM64" />
+			<lib name="${haxelib:hxluajit}/project/luajit/lib/Linux/libluajit.a" if="HXCPP_M64" />
 		</section>
 
 		<section if="android">
