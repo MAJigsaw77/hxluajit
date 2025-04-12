@@ -23,12 +23,12 @@ call msvcbuild.bat static
 
 cd ..
 
-xcopy /Y /Q src\lua51.lib build\libluajit.lib
-xcopy /Y /Q src\lua.hpp build\include\lua.hpp
-xcopy /Y /Q src\lauxlib.h build\include\lauxlib.h
-xcopy /Y /Q src\lua.h build\include\lua.h
-xcopy /Y /Q src\luaconf.h build\include\luaconf.h
-xcopy /Y /Q src\lualib.h build\include\lualib.h
-xcopy /Y /Q src\luajit.h build\include\luajit.h
+xcopy /Y /Q src\lua51.lib build\*
+xcopy /Y /Q src\lua.hpp build\include\*
+xcopy /Y /Q src\lauxlib.h build\include\*
+xcopy /Y /Q src\lua.h build\include\*
+xcopy /Y /Q src\luaconf.h build\include\*
+xcopy /Y /Q src\lualib.h build\include\*
+xcopy /Y /Q src\luajit.h build\include\*
 
 cd ..
