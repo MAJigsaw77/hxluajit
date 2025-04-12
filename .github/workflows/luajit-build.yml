@@ -182,6 +182,8 @@ jobs:
           cp -r ./LuaJIT/android/libluajit-x86.a ./project/luajit/lib/Android/libluajit-x86.a
           cp -r ./LuaJIT/android/include/* ./project/luajit/include/
 
+          rm -rf ./LuaJIT
+
       - name: Push to GitHub
         uses: stefanzweifel/git-auto-commit-action@master
         with:
