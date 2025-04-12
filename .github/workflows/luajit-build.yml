@@ -59,8 +59,8 @@ jobs:
         uses: actions/checkout@main
 
       - name: Install Dependencies
-        run: sudo apt-get update && sudo apt-get install -y build-essential gcc g++ make && sudo apt-get install -y gcc-multilib g++-multilib && sudo apt-get install -y crossbuild-essential-arm64
-
+        run: sudo apt-get update && sudo apt-get install -y build-essential gcc g++ make && sudo apt-get install -y gcc-multilib g++-multilib && sudo apt-get install -y crossbuild-essential-arm64 gcc-aarch64-linux-gnu
+      
       - name: Compiling
         run: chmod +x project/luajit/scripts/Linux-Building.sh && ./project/luajit/scripts/Linux-Building.sh
 
@@ -115,37 +115,37 @@ jobs:
           ref: ${{ github.head_ref }}
 
       - name: Download Windows Artifacts
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@main
         with:
           name: Windows
           path: ./LuaJIT/windows
 
       - name: Download Windows-MinGW Artifacts
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@main
         with:
           name: Windows-MinGW
           path: ./LuaJIT/windows-mingw
 
       - name: Download MacOS Artifacts
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@main
         with:
           name: Macos
           path: ./LuaJIT/macos
 
       - name: Download Linux Artifacts
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@main
         with:
           name: Linux
           path: ./LuaJIT/linux
 
       - name: Download iOS Artifacts
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@main
         with:
           name: iOS
           path: ./LuaJIT/ios
 
       - name: Download Android Artifacts
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@main
         with:
           name: Android
           path: ./LuaJIT/android
