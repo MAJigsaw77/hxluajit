@@ -149,22 +149,33 @@ jobs:
 
       - name: Copy to project/luajit/lib and project/luajit/include
         run: |
+          mkdir -p ./project/luajit/lib/Windows
+          mkdir -p ./project/luajit/lib/MinGW
+          mkdir -p ./project/luajit/lib/MacOS
+          mkdir -p ./project/luajit/lib/Linux
+          mkdir -p ./project/luajit/lib/iOS
+          mkdir -p ./project/luajit/lib/Android
+          mkdir -p ./project/luajit/include
+      
+          rm -rf ./project/luajit/lib/Windows/*
+          rm -rf ./project/luajit/lib/MinGW/*
+          rm -rf ./project/luajit/lib/MacOS/*
+          rm -rf ./project/luajit/lib/Linux/*
+          rm -rf ./project/luajit/lib/iOS/*
+          rm -rf ./project/luajit/lib/Android/*
+          rm -rf ./project/luajit/include/*
+      
           cp -r ./LuaJIT/windows/lua51.lib ./project/luajit/lib/Windows/lua51.lib
           cp -r ./LuaJIT/windows/include/* ./project/luajit/include
-
           cp -r ./LuaJIT/windows-mingw/libluajit.a ./project/luajit/lib/MinGW/libluajit.a
           cp -r ./LuaJIT/windows-mingw/include/* ./project/luajit/include
-
           cp -r ./LuaJIT/macos/libluajit.a ./project/luajit/lib/MacOS/libluajit.a
           cp -r ./LuaJIT/macos/include/* ./project/luajit/include
-
           cp -r ./LuaJIT/linux/libluajit.a ./project/luajit/lib/Linux/libluajit.a
           cp -r ./LuaJIT/linux/include/* ./project/luajit/include
-
           cp -r ./LuaJIT/ios/libluajit_device.a ./project/luajit/lib/iOS/libluajit_device.a
           cp -r ./LuaJIT/ios/libluajit_sim.a ./project/luajit/lib/iOS/libluajit_sim.a
           cp -r ./LuaJIT/ios/include/* ./project/luajit/include/
-
           cp -r ./LuaJIT/android/libluajit-arm64.a ./project/luajit/lib/Android/libluajit-arm64.a
           cp -r ./LuaJIT/android/libluajit-armv7a.a ./project/luajit/lib/Android/libluajit-armv7a.a
           cp -r ./LuaJIT/android/libluajit-x86_64.a ./project/luajit/lib/Android/libluajit-x86_64.a
