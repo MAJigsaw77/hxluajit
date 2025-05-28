@@ -1,190 +1,190 @@
 name: Build-LuaJIT
 on: workflow_dispatch
 jobs:
-  Windows:
-    runs-on: windows-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@main
+    Windows:
+        runs-on: windows-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@main
 
-      - name: Setup MSVC
-        uses: ilammy/msvc-dev-cmd@v1
+            - name: Setup MSVC
+              uses: ilammy/msvc-dev-cmd@v1
 
-      - name: Compiling
-        run: ./project/luajit/scripts/Windows-Building.bat
+            - name: Compiling
+              run: ./project/luajit/scripts/Windows-Building.bat
 
-      - name: Upload Artifact
-        uses: actions/upload-artifact@main
-        with:
-          name: Windows
-          path: LuaJIT/build
-          if-no-files-found: warn
-  Windows-MinGW:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@main
+            - name: Upload Artifact
+              uses: actions/upload-artifact@main
+              with:
+                  name: Windows
+                  path: LuaJIT/build
+                  if-no-files-found: warn
+    Windows-MinGW:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@main
 
-      - name: Setup MinGW
-        run: sudo apt update && sudo apt install mingw-w64 -y
+            - name: Setup MinGW
+              run: sudo apt update && sudo apt install mingw-w64 -y
 
-      - name: Compiling
-        run: chmod +x project/luajit/scripts/MinGW-Building.sh && ./project/luajit/scripts/MinGW-Building.sh
+            - name: Compiling
+              run: chmod +x project/luajit/scripts/MinGW-Building.sh && ./project/luajit/scripts/MinGW-Building.sh
 
-      - name: Upload Artifact
-        uses: actions/upload-artifact@main
-        with:
-          name: Windows-MinGW
-          path: LuaJIT/build
-          if-no-files-found: warn
-  MacOS:
-    runs-on: macos-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@main
+            - name: Upload Artifact
+              uses: actions/upload-artifact@main
+              with:
+                  name: Windows-MinGW
+                  path: LuaJIT/build
+                  if-no-files-found: warn
+    MacOS:
+        runs-on: macos-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@main
 
-      - name: Compiling
-        run: chmod +x project/luajit/scripts/MacOS-Building.sh && ./project/luajit/scripts/MacOS-Building.sh
+            - name: Compiling
+              run: chmod +x project/luajit/scripts/MacOS-Building.sh && ./project/luajit/scripts/MacOS-Building.sh
 
-      - name: Upload Artifact
-        uses: actions/upload-artifact@main
-        with:
-          name: Macos
-          path: LuaJIT/build
-          if-no-files-found: warn
-  Linux:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@main
+            - name: Upload Artifact
+              uses: actions/upload-artifact@main
+              with:
+                  name: Macos
+                  path: LuaJIT/build
+                  if-no-files-found: warn
+    Linux:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@main
 
-      - name: Compiling
-        run: chmod +x project/luajit/scripts/Linux-Building.sh && ./project/luajit/scripts/Linux-Building.sh
+            - name: Compiling
+              run: chmod +x project/luajit/scripts/Linux-Building.sh && ./project/luajit/scripts/Linux-Building.sh
 
-      - name: Upload Artifact
-        uses: actions/upload-artifact@main
-        with:
-          name: Linux
-          path: LuaJIT/build
-          if-no-files-found: warn
-  iOS:
-    runs-on: macos-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@main
+            - name: Upload Artifact
+              uses: actions/upload-artifact@main
+              with:
+                  name: Linux
+                  path: LuaJIT/build
+                  if-no-files-found: warn
+    iOS:
+        runs-on: macos-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@main
 
-      - name: Compiling
-        run: chmod +x project/luajit/scripts/iOS-Building.sh && ./project/luajit/scripts/iOS-Building.sh
+            - name: Compiling
+              run: chmod +x project/luajit/scripts/iOS-Building.sh && ./project/luajit/scripts/iOS-Building.sh
 
-      - name: Upload Artifact
-        uses: actions/upload-artifact@main
-        with:
-          name: iOS
-          path: LuaJIT/build
-          if-no-files-found: warn
-  Android:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@main
+            - name: Upload Artifact
+              uses: actions/upload-artifact@main
+              with:
+                  name: iOS
+                  path: LuaJIT/build
+                  if-no-files-found: warn
+    Android:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@main
 
-      - name: Install Dependencies
-        run: sudo dpkg --add-architecture i386 && sudo apt-get update && sudo apt-get install make automake autoconf libtool build-essential gcc-multilib -y
+            - name: Install Dependencies
+              run: sudo dpkg --add-architecture i386 && sudo apt-get update && sudo apt-get install make automake autoconf libtool build-essential gcc-multilib -y
 
-      - name: Compiling
-        run: chmod +x project/luajit/scripts/Android-Building.sh && ./project/luajit/scripts/Android-Building.sh
+            - name: Compiling
+              run: chmod +x project/luajit/scripts/Android-Building.sh && ./project/luajit/scripts/Android-Building.sh
 
-      - name: Upload Artifact
-        uses: actions/upload-artifact@main
-        with:
-          name: Android
-          path: LuaJIT/build
-          if-no-files-found: warn
-  Publisher:
-    needs: [Windows, Windows-MinGW, MacOS, Linux, iOS, Android]
-    runs-on: ubuntu-24.04
-    permissions:
-      contents: write
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          ref: ${{ github.head_ref }}
+            - name: Upload Artifact
+              uses: actions/upload-artifact@main
+              with:
+                  name: Android
+                  path: LuaJIT/build
+                  if-no-files-found: warn
+    Publisher:
+        needs: [Windows, Windows-MinGW, MacOS, Linux, iOS, Android]
+        runs-on: ubuntu-24.04
+        permissions:
+            contents: write
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+              with:
+                  ref: ${{ github.head_ref }}
 
-      - name: Download Windows Artifacts
-        uses: actions/download-artifact@main
-        with:
-          name: Windows
-          path: ./LuaJIT/windows
+            - name: Download Windows Artifacts
+              uses: actions/download-artifact@main
+              with:
+                  name: Windows
+                  path: ./LuaJIT/windows
 
-      - name: Download Windows-MinGW Artifacts
-        uses: actions/download-artifact@main
-        with:
-          name: Windows-MinGW
-          path: ./LuaJIT/windows-mingw
+            - name: Download Windows-MinGW Artifacts
+              uses: actions/download-artifact@main
+              with:
+                  name: Windows-MinGW
+                  path: ./LuaJIT/windows-mingw
 
-      - name: Download MacOS Artifacts
-        uses: actions/download-artifact@main
-        with:
-          name: Macos
-          path: ./LuaJIT/macos
+            - name: Download MacOS Artifacts
+              uses: actions/download-artifact@main
+              with:
+                  name: Macos
+                  path: ./LuaJIT/macos
 
-      - name: Download Linux Artifacts
-        uses: actions/download-artifact@main
-        with:
-          name: Linux
-          path: ./LuaJIT/linux
+            - name: Download Linux Artifacts
+              uses: actions/download-artifact@main
+              with:
+                  name: Linux
+                  path: ./LuaJIT/linux
 
-      - name: Download iOS Artifacts
-        uses: actions/download-artifact@main
-        with:
-          name: iOS
-          path: ./LuaJIT/ios
+            - name: Download iOS Artifacts
+              uses: actions/download-artifact@main
+              with:
+                  name: iOS
+                  path: ./LuaJIT/ios
 
-      - name: Download Android Artifacts
-        uses: actions/download-artifact@main
-        with:
-          name: Android
-          path: ./LuaJIT/android
+            - name: Download Android Artifacts
+              uses: actions/download-artifact@main
+              with:
+                  name: Android
+                  path: ./LuaJIT/android
 
-      - name: Copy to project/luajit/lib and project/luajit/include
-        run: |
-          mkdir -p ./project/luajit/lib/Windows
-          mkdir -p ./project/luajit/lib/MinGW
-          mkdir -p ./project/luajit/lib/MacOS
-          mkdir -p ./project/luajit/lib/Linux
-          mkdir -p ./project/luajit/lib/iOS
-          mkdir -p ./project/luajit/lib/Android
-          mkdir -p ./project/luajit/include
-      
-          rm -rf ./project/luajit/lib/Windows/*
-          rm -rf ./project/luajit/lib/MinGW/*
-          rm -rf ./project/luajit/lib/MacOS/*
-          rm -rf ./project/luajit/lib/Linux/*
-          rm -rf ./project/luajit/lib/iOS/*
-          rm -rf ./project/luajit/lib/Android/*
-          rm -rf ./project/luajit/include/*
-      
-          cp -r ./LuaJIT/windows/lua51.lib ./project/luajit/lib/Windows/lua51.lib
-          cp -r ./LuaJIT/windows/include/* ./project/luajit/include
-          cp -r ./LuaJIT/windows-mingw/libluajit.a ./project/luajit/lib/MinGW/libluajit.a
-          cp -r ./LuaJIT/windows-mingw/include/* ./project/luajit/include
-          cp -r ./LuaJIT/macos/libluajit.a ./project/luajit/lib/MacOS/libluajit.a
-          cp -r ./LuaJIT/macos/include/* ./project/luajit/include
-          cp -r ./LuaJIT/linux/libluajit.a ./project/luajit/lib/Linux/libluajit.a
-          cp -r ./LuaJIT/linux/include/* ./project/luajit/include
-          cp -r ./LuaJIT/ios/libluajit_device.a ./project/luajit/lib/iOS/libluajit_device.a
-          cp -r ./LuaJIT/ios/libluajit_sim.a ./project/luajit/lib/iOS/libluajit_sim.a
-          cp -r ./LuaJIT/ios/include/* ./project/luajit/include/
-          cp -r ./LuaJIT/android/libluajit-arm64.a ./project/luajit/lib/Android/libluajit-arm64.a
-          cp -r ./LuaJIT/android/libluajit-armv7a.a ./project/luajit/lib/Android/libluajit-armv7a.a
-          cp -r ./LuaJIT/android/libluajit-x86_64.a ./project/luajit/lib/Android/libluajit-x86_64.a
-          cp -r ./LuaJIT/android/libluajit-x86.a ./project/luajit/lib/Android/libluajit-x86.a
-          cp -r ./LuaJIT/android/include/* ./project/luajit/include/
+            - name: Copy to project/luajit/lib and project/luajit/include
+              run: |
+                  mkdir -p ./project/luajit/lib/Windows
+                  mkdir -p ./project/luajit/lib/MinGW
+                  mkdir -p ./project/luajit/lib/MacOS
+                  mkdir -p ./project/luajit/lib/Linux
+                  mkdir -p ./project/luajit/lib/iOS
+                  mkdir -p ./project/luajit/lib/Android
+                  mkdir -p ./project/luajit/include
 
-          rm -rf ./LuaJIT
+                  rm -rf ./project/luajit/lib/Windows/*
+                  rm -rf ./project/luajit/lib/MinGW/*
+                  rm -rf ./project/luajit/lib/MacOS/*
+                  rm -rf ./project/luajit/lib/Linux/*
+                  rm -rf ./project/luajit/lib/iOS/*
+                  rm -rf ./project/luajit/lib/Android/*
+                  rm -rf ./project/luajit/include/*
 
-      - name: Push to GitHub
-        uses: stefanzweifel/git-auto-commit-action@master
-        with:
-          commit_message: "Update `LuaJIT` libs and headers."
+                  cp -r ./LuaJIT/windows/lua51.lib ./project/luajit/lib/Windows/lua51.lib
+                  cp -r ./LuaJIT/windows/include/* ./project/luajit/include
+                  cp -r ./LuaJIT/windows-mingw/libluajit.a ./project/luajit/lib/MinGW/libluajit.a
+                  cp -r ./LuaJIT/windows-mingw/include/* ./project/luajit/include
+                  cp -r ./LuaJIT/macos/libluajit.a ./project/luajit/lib/MacOS/libluajit.a
+                  cp -r ./LuaJIT/macos/include/* ./project/luajit/include
+                  cp -r ./LuaJIT/linux/libluajit.a ./project/luajit/lib/Linux/libluajit.a
+                  cp -r ./LuaJIT/linux/include/* ./project/luajit/include
+                  cp -r ./LuaJIT/ios/libluajit_device.a ./project/luajit/lib/iOS/libluajit_device.a
+                  cp -r ./LuaJIT/ios/libluajit_sim.a ./project/luajit/lib/iOS/libluajit_sim.a
+                  cp -r ./LuaJIT/ios/include/* ./project/luajit/include/
+                  cp -r ./LuaJIT/android/libluajit-arm64.a ./project/luajit/lib/Android/libluajit-arm64.a
+                  cp -r ./LuaJIT/android/libluajit-armv7a.a ./project/luajit/lib/Android/libluajit-armv7a.a
+                  cp -r ./LuaJIT/android/libluajit-x86_64.a ./project/luajit/lib/Android/libluajit-x86_64.a
+                  cp -r ./LuaJIT/android/libluajit-x86.a ./project/luajit/lib/Android/libluajit-x86.a
+                  cp -r ./LuaJIT/android/include/* ./project/luajit/include/
+
+                  rm -rf ./LuaJIT
+
+            - name: Push to GitHub
+              uses: stefanzweifel/git-auto-commit-action@master
+              with:
+                  commit_message: "Update `LuaJIT` libs and headers."

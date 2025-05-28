@@ -1,56 +1,77 @@
 name: Testing
 on:
-  push:
-    branches: main
-    paths-ignore:
-      - '.github/workflows/luajit-build.yml'
-      - 'project/luajit/scripts/**'
-      - 'LICENSE'
-      - 'README.md'
-      - 'TODO.md'
-      - 'haxelib.json'
-      - 'hxformat.json'
-  workflow_dispatch:
+    push:
+        branches: main
+        paths-ignore:
+            - ".github/workflows/luajit-build.yml"
+            - "project/luajit/scripts/**"
+            - "LICENSE"
+            - "README.md"
+            - "TODO.md"
+            - "haxelib.json"
+            - "hxformat.json"
+    workflow_dispatch:
 jobs:
-  Linux:
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        sample: [alter-state, array, callback, ffi, module, override, pass-variable, return-value, simple-call, stack-dump]
-    steps:
-      - name: Checkout
-        uses: actions/checkout@main
+    Windows:
+        runs-on: windows-latest
+        strategy:
+            fail-fast: false
+            matrix:
+                sample: [alter-state, array, callback, ffi, module, override, pass-variable, return-value, simple-call, stack-dump]
+        steps:
+            - name: Checkout
+              uses: actions/checkout@main
 
-      - name: Setup Haxe
-        uses: krdlab/setup-haxe@master
-        with:
-          haxe-version: 4.3.6
+            - name: Setup Haxe
+              uses: krdlab/setup-haxe@master
+              with:
+                  haxe-version: 4.3.6
 
-      - name: Compiling 
-        run: |
-          haxelib install hxcpp --quiet
-          haxelib dev hxluajit .
-          cd examples/${{matrix.sample}}
-          haxe build.hxml
-  MacOS:
-    runs-on: macos-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        sample: [alter-state, array, callback, ffi, module, override, pass-variable, return-value, simple-call, stack-dump]
-    steps:
-      - name: Checkout
-        uses: actions/checkout@main
+            - name: Compiling
+              run: |
+                  haxelib install hxcpp --quiet
+                  haxelib dev hxluajit .
+                  cd examples/${{matrix.sample}}
+                  haxe build-win.hxml
+    Linux:
+        runs-on: ubuntu-latest
+        strategy:
+            fail-fast: false
+            matrix:
+                sample: [alter-state, array, callback, ffi, module, override, pass-variable, return-value, simple-call, stack-dump]
+        steps:
+            - name: Checkout
+              uses: actions/checkout@main
 
-      - name: Setup Haxe
-        uses: krdlab/setup-haxe@master
-        with:
-          haxe-version: 4.3.6
+            - name: Setup Haxe
+              uses: krdlab/setup-haxe@master
+              with:
+                  haxe-version: 4.3.6
 
-      - name: Compiling 
-        run: |
-          haxelib install hxcpp --quiet
-          haxelib dev hxluajit .
-          cd examples/${{matrix.sample}}
-          haxe build.hxml
+            - name: Compiling
+              run: |
+                  haxelib install hxcpp --quiet
+                  haxelib dev hxluajit .
+                  cd examples/${{matrix.sample}}
+                  haxe build-unix.hxml
+    MacOS:
+        runs-on: macos-latest
+        strategy:
+            fail-fast: false
+            matrix:
+                sample: [alter-state, array, callback, ffi, module, override, pass-variable, return-value, simple-call, stack-dump]
+        steps:
+            - name: Checkout
+              uses: actions/checkout@main
+
+            - name: Setup Haxe
+              uses: krdlab/setup-haxe@master
+              with:
+                  haxe-version: 4.3.6
+
+            - name: Compiling
+              run: |
+                  haxelib install hxcpp --quiet
+                  haxelib dev hxluajit .
+                  cd examples/${{matrix.sample}}
+                  haxe build-unix.hxml

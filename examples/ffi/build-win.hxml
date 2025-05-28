@@ -1,0 +1,7 @@
+-cp ./
+-D analyzer-optimize
+-lib hxluajit
+-main Main
+-cpp bin
+-cmd xcopy script.lua bin\script.lua /E /H /C /I /Y /Q >nul 2>&1
+-cmd bin\Main.exe
