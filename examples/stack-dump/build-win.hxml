@@ -4,5 +4,4 @@
 -lib hxluajit
 -main Main
 -cpp bin
--cmd xcopy script.lua bin\ /Y /Q >nul 2>&1
 -cmd bin\Main.exe

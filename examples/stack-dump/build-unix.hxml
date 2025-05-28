@@ -3,5 +3,4 @@
 -lib hxluajit
 -main Main
 -cpp bin
--cmd cp script.lua bin/script.lua
 -cmd bin/Main
